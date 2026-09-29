@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "incidentes",
+  "info": {
+    "singularName": "incidente",
+    "pluralName": "incidentes",
+    "displayName": "Incidente"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "abierto",
+        "en_curso",
+        "cerrado"
+      ],
+      "default": "abierto",
+      "required": true
+    },
+    "fechaApertura": {
+      "type": "datetime",
+      "required": true
+    },
+    "fechaCierre": {
+      "type": "datetime"
+    },
+    "categoria": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::categoria.categoria",
+      "inversedBy": "incidentes"
+    },
+    "zona": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::zona.zona",
+      "inversedBy": "incidentes"
+    },
+    "reportes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reporte.reporte",
+      "mappedBy": "incidente"
+    }
+  }
+}

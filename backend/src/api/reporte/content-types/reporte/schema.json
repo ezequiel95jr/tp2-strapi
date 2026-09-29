@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reportes",
+  "info": {
+    "singularName": "reporte",
+    "pluralName": "reportes",
+    "displayName": "Reporte"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descripcion": {
+      "type": "text"
+    },
+    "foto": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "fecha": {
+      "type": "datetime",
+      "required": true
+    },
+    "incidente": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::incidente.incidente",
+      "inversedBy": "reportes"
+    },
+    "autor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
