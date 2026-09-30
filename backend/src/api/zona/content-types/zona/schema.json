@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "zonas",
+  "info": {
+    "singularName": "zona",
+    "pluralName": "zonas",
+    "displayName": "Zona"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre",
+      "required": true
+    },
+    "incidentes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::incidente.incidente",
+      "mappedBy": "zona"
+    }
+  }
+}
