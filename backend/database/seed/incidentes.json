@@ -1,0 +1,1254 @@
+{
+  "categorias": [
+    {
+      "nombre": "Bache",
+      "descripcion": "Pozos y hundimientos en la calzada"
+    },
+    {
+      "nombre": "Luminaria",
+      "descripcion": "Alumbrado público apagado, intermitente o dañado"
+    },
+    {
+      "nombre": "Semáforo",
+      "descripcion": "Semáforos apagados o con fallas"
+    },
+    {
+      "nombre": "Vereda rota",
+      "descripcion": "Veredas levantadas, rotas o con desniveles"
+    },
+    {
+      "nombre": "Basural",
+      "descripcion": "Acumulación de residuos en la vía pública"
+    },
+    {
+      "nombre": "Árbol caído",
+      "descripcion": "Árboles o ramas caídas que obstruyen el paso"
+    },
+    {
+      "nombre": "Señalización",
+      "descripcion": "Carteles o demarcación vial faltante o dañada"
+    },
+    {
+      "nombre": "Desagüe",
+      "descripcion": "Bocas de tormenta tapadas y anegamientos"
+    }
+  ],
+  "zonas": [
+    {
+      "nombre": "Centro"
+    },
+    {
+      "nombre": "Alta Barda"
+    },
+    {
+      "nombre": "Santa Genoveva"
+    },
+    {
+      "nombre": "Bouquet Roldán"
+    },
+    {
+      "nombre": "Villa Farrell"
+    },
+    {
+      "nombre": "Valentina Sur"
+    },
+    {
+      "nombre": "Confluencia"
+    },
+    {
+      "nombre": "Rincón de Emilio"
+    }
+  ],
+  "incidentes": [
+    {
+      "titulo": "Vereda rota en Planas al 1900",
+      "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+      "direccion": "Planas 1900",
+      "estado": "cerrado",
+      "fechaApertura": "2026-04-14T13:27:00.000Z",
+      "fechaCierre": "2026-05-03T18:27:00.000Z",
+      "categoria": "Vereda rota",
+      "zona": "Bouquet Roldán",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-04-14T13:27:00.000Z"
+        },
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-04-26T15:10:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Mengelle al 1300",
+      "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+      "direccion": "Mengelle 1300",
+      "estado": "cerrado",
+      "fechaApertura": "2026-04-14T16:38:00.000Z",
+      "fechaCierre": "2026-05-11T19:38:00.000Z",
+      "categoria": "Vereda rota",
+      "zona": "Confluencia",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-04-14T16:38:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-04-16T02:20:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Chubut al 1050",
+      "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+      "direccion": "Chubut 1050",
+      "estado": "cerrado",
+      "fechaApertura": "2026-04-20T10:06:00.000Z",
+      "fechaCierre": "2026-04-30T13:06:00.000Z",
+      "categoria": "Vereda rota",
+      "zona": "Villa Farrell",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-04-20T10:06:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-04-22T03:54:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-04-28T04:52:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Solalique",
+      "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+      "direccion": "Solalique 1850",
+      "estado": "cerrado",
+      "fechaApertura": "2026-04-25T11:27:00.000Z",
+      "fechaCierre": "2026-05-17T15:27:00.000Z",
+      "categoria": "Árbol caído",
+      "zona": "Rincón de Emilio",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+          "fecha": "2026-04-25T11:27:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-04-29T18:56:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "El árbol caído rompió parte de la vereda.",
+          "fecha": "2026-05-16T00:22:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Sarmiento",
+      "descripcion": "El árbol caído rompió parte de la vereda.",
+      "direccion": "Sarmiento 350",
+      "estado": "cerrado",
+      "fechaApertura": "2026-04-25T14:41:00.000Z",
+      "fechaCierre": "2026-05-30T19:41:00.000Z",
+      "categoria": "Árbol caído",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "El árbol caído rompió parte de la vereda.",
+          "fecha": "2026-04-25T14:41:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+          "fecha": "2026-04-26T14:20:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "El árbol caído rompió parte de la vereda.",
+          "fecha": "2026-04-27T13:10:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-05-19T09:45:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Semáforo sin funcionar en Crouzeilles",
+      "descripcion": "El semáforo está apagado en todas las direcciones.",
+      "direccion": "Crouzeilles 1800",
+      "estado": "cerrado",
+      "fechaApertura": "2026-05-02T14:37:00.000Z",
+      "fechaCierre": "2026-06-01T22:37:00.000Z",
+      "categoria": "Semáforo",
+      "zona": "Valentina Sur",
+      "reportes": [
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "El semáforo está apagado en todas las direcciones.",
+          "fecha": "2026-05-02T14:37:00.000Z"
+        },
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "La luz verde peatonal no funciona.",
+          "fecha": "2026-05-12T03:43:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Queda en amarillo intermitente en hora pico, se arma mucho lío.",
+          "fecha": "2026-05-24T19:30:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "El semáforo está apagado en todas las direcciones.",
+          "fecha": "2026-05-25T11:14:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Río Negro",
+      "descripcion": "El desagüe tiene la reja rota.",
+      "direccion": "Río Negro 300",
+      "estado": "abierto",
+      "fechaApertura": "2026-05-12T16:09:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Desagüe",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-05-12T16:09:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Luminaria apagada en Lanín",
+      "descripcion": "La luz de la esquina no prende desde hace varios días.",
+      "direccion": "Lanín 1450",
+      "estado": "cerrado",
+      "fechaApertura": "2026-05-14T19:17:00.000Z",
+      "fechaCierre": "2026-06-17T03:17:00.000Z",
+      "categoria": "Luminaria",
+      "zona": "Confluencia",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "La luz de la esquina no prende desde hace varios días.",
+          "fecha": "2026-05-14T19:17:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Novella",
+      "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+      "direccion": "Novella 2150",
+      "estado": "cerrado",
+      "fechaApertura": "2026-05-22T16:19:00.000Z",
+      "fechaCierre": "2026-05-26T19:19:00.000Z",
+      "categoria": "Árbol caído",
+      "zona": "Bouquet Roldán",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+          "fecha": "2026-05-22T16:19:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-05-23T15:22:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "El árbol caído rompió parte de la vereda.",
+          "fecha": "2026-05-25T05:42:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Río Negro",
+      "descripcion": "El desagüe tiene la reja rota.",
+      "direccion": "Río Negro 2200",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-01T13:51:00.000Z",
+      "fechaCierre": "2026-06-24T16:51:00.000Z",
+      "categoria": "Desagüe",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-06-01T13:51:00.000Z"
+        },
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-06-07T00:10:00.000Z"
+        },
+        {
+          "autor": "camila.torres",
+          "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+          "fecha": "2026-06-15T20:45:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Queda agua estancada varios días después de la lluvia.",
+          "fecha": "2026-06-19T02:36:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Microbasural en Talero",
+      "descripcion": "Tiran bolsas de basura en el baldío, hay mal olor.",
+      "direccion": "Talero 1150",
+      "estado": "en_curso",
+      "fechaApertura": "2026-06-02T18:02:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Basural",
+      "zona": "Alta Barda",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Tiran bolsas de basura en el baldío, hay mal olor.",
+          "fecha": "2026-06-02T18:02:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Se acumularon escombros y ramas en la esquina.",
+          "fecha": "2026-06-23T21:50:00.000Z"
+        },
+        {
+          "autor": "camila.torres",
+          "descripcion": "Volvieron a tirar basura en el mismo lugar.",
+          "fecha": "2026-07-25T20:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Mengelle",
+      "descripcion": "El desagüe tiene la reja rota.",
+      "direccion": "Mengelle 200",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-05T19:07:00.000Z",
+      "fechaCierre": "2026-07-09T01:07:00.000Z",
+      "categoria": "Desagüe",
+      "zona": "Confluencia",
+      "reportes": [
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-06-05T19:07:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Queda agua estancada varios días después de la lluvia.",
+          "fecha": "2026-07-08T21:49:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Luminaria apagada en Salta",
+      "descripcion": "La luz de la esquina no prende desde hace varios días.",
+      "direccion": "Salta 1150",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-06T10:57:00.000Z",
+      "fechaCierre": "2026-06-18T18:57:00.000Z",
+      "categoria": "Luminaria",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "La luz de la esquina no prende desde hace varios días.",
+          "fecha": "2026-06-06T10:57:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Bache en Santa Fe",
+      "descripcion": "Pozo profundo frente al número 1550, peligroso para motos.",
+      "direccion": "Santa Fe 1550",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-07T16:08:00.000Z",
+      "fechaCierre": "2026-06-15T19:08:00.000Z",
+      "categoria": "Bache",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Pozo profundo frente al número 1550, peligroso para motos.",
+          "fecha": "2026-06-07T16:08:00.000Z"
+        },
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Sigue el bache sin arreglar, cada vez está peor.",
+          "fecha": "2026-06-10T07:02:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Bache en Solalique",
+      "descripcion": "Hay un pozo grande en la calzada, los autos lo esquivan invadiendo el otro carril.",
+      "direccion": "Solalique 50",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-09T12:28:00.000Z",
+      "fechaCierre": "2026-06-29T18:28:00.000Z",
+      "categoria": "Bache",
+      "zona": "Rincón de Emilio",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Hay un pozo grande en la calzada, los autos lo esquivan invadiendo el otro carril.",
+          "fecha": "2026-06-09T12:28:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "El bache se agrandó con la lluvia, ya rompió una rueda.",
+          "fecha": "2026-06-25T17:10:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Perito Moreno",
+      "descripcion": "El árbol caído rompió parte de la vereda.",
+      "direccion": "Perito Moreno 200",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-12T18:48:00.000Z",
+      "fechaCierre": "2026-07-15T20:48:00.000Z",
+      "categoria": "Árbol caído",
+      "zona": "Villa Farrell",
+      "reportes": [
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "El árbol caído rompió parte de la vereda.",
+          "fecha": "2026-06-12T18:48:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-06-13T06:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Solalique",
+      "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+      "direccion": "Solalique 1900",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-12T21:41:00.000Z",
+      "fechaCierre": "2026-06-21T00:41:00.000Z",
+      "categoria": "Árbol caído",
+      "zona": "Rincón de Emilio",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-06-12T21:41:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+          "fecha": "2026-06-20T10:49:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Señalización dañada en Choele Choel",
+      "descripcion": "El cartel del nombre de la calle está caído.",
+      "direccion": "Choele Choel 450",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-18T21:43:00.000Z",
+      "fechaCierre": "2026-07-11T01:43:00.000Z",
+      "categoria": "Señalización",
+      "zona": "Valentina Sur",
+      "reportes": [
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "El cartel del nombre de la calle está caído.",
+          "fecha": "2026-06-18T21:43:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "El cartel del nombre de la calle está caído.",
+          "fecha": "2026-06-21T03:18:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Falta el cartel de PARE en la esquina.",
+          "fecha": "2026-06-29T16:39:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "La senda peatonal está borrada, no se ve.",
+          "fecha": "2026-07-05T06:50:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Bache en Saavedra",
+      "descripcion": "Sigue el bache sin arreglar, cada vez está peor.",
+      "direccion": "Saavedra 1200",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-25T21:04:00.000Z",
+      "fechaCierre": "2026-07-09T04:04:00.000Z",
+      "categoria": "Bache",
+      "zona": "Villa Farrell",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Sigue el bache sin arreglar, cada vez está peor.",
+          "fecha": "2026-06-25T21:04:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Pozo profundo frente al número 1200, peligroso para motos.",
+          "fecha": "2026-06-26T12:55:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "El bache se agrandó con la lluvia, ya rompió una rueda.",
+          "fecha": "2026-06-28T05:58:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Talero al 1950",
+      "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+      "direccion": "Talero 1950",
+      "estado": "cerrado",
+      "fechaApertura": "2026-06-30T16:22:00.000Z",
+      "fechaCierre": "2026-07-02T20:22:00.000Z",
+      "categoria": "Vereda rota",
+      "zona": "Alta Barda",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-06-30T16:22:00.000Z"
+        },
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-07-01T01:02:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-07-02T15:46:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-07-02T18:19:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Bache en Santa Fe",
+      "descripcion": "El bache se agrandó con la lluvia, ya rompió una rueda.",
+      "direccion": "Santa Fe 1850",
+      "estado": "abierto",
+      "fechaApertura": "2026-07-12T18:36:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Bache",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "El bache se agrandó con la lluvia, ya rompió una rueda.",
+          "fecha": "2026-07-12T18:36:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Sigue el bache sin arreglar, cada vez está peor.",
+          "fecha": "2026-08-06T17:40:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Hay un pozo grande en la calzada, los autos lo esquivan invadiendo el otro carril.",
+          "fecha": "2026-08-10T10:34:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Pozo profundo frente al número 1850, peligroso para motos.",
+          "fecha": "2026-08-23T09:07:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Salta al 400",
+      "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+      "direccion": "Salta 400",
+      "estado": "cerrado",
+      "fechaApertura": "2026-07-16T20:06:00.000Z",
+      "fechaCierre": "2026-08-07T21:06:00.000Z",
+      "categoria": "Vereda rota",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-07-16T20:06:00.000Z"
+        },
+        {
+          "autor": "camila.torres",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-07-18T23:32:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Semáforo sin funcionar en Planas",
+      "descripcion": "La luz verde peatonal no funciona.",
+      "direccion": "Planas 1650",
+      "estado": "cerrado",
+      "fechaApertura": "2026-07-21T11:57:00.000Z",
+      "fechaCierre": "2026-07-22T18:57:00.000Z",
+      "categoria": "Semáforo",
+      "zona": "Bouquet Roldán",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "La luz verde peatonal no funciona.",
+          "fecha": "2026-07-21T11:57:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Lanín",
+      "descripcion": "El árbol caído rompió parte de la vereda.",
+      "direccion": "Lanín 1100",
+      "estado": "cerrado",
+      "fechaApertura": "2026-07-25T14:04:00.000Z",
+      "fechaCierre": "2026-08-14T17:04:00.000Z",
+      "categoria": "Árbol caído",
+      "zona": "Confluencia",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "El árbol caído rompió parte de la vereda.",
+          "fecha": "2026-07-25T14:04:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-08-07T10:37:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Crouzeilles al 1050",
+      "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+      "direccion": "Crouzeilles 1050",
+      "estado": "en_curso",
+      "fechaApertura": "2026-07-25T20:54:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Vereda rota",
+      "zona": "Valentina Sur",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-07-25T20:54:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-07-26T12:00:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-09-19T00:35:00.000Z"
+        },
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-09-27T14:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Doctor Ramón al 1600",
+      "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+      "direccion": "Doctor Ramón 1600",
+      "estado": "cerrado",
+      "fechaApertura": "2026-07-30T12:38:00.000Z",
+      "fechaCierre": "2026-08-08T13:38:00.000Z",
+      "categoria": "Vereda rota",
+      "zona": "Rincón de Emilio",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-07-30T12:38:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-07-31T23:25:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-08-02T23:31:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Choele Choel",
+      "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+      "direccion": "Choele Choel 1300",
+      "estado": "cerrado",
+      "fechaApertura": "2026-08-04T18:59:00.000Z",
+      "fechaCierre": "2026-08-27T20:59:00.000Z",
+      "categoria": "Desagüe",
+      "zona": "Valentina Sur",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+          "fecha": "2026-08-04T18:59:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Queda agua estancada varios días después de la lluvia.",
+          "fecha": "2026-08-09T21:26:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Señalización dañada en Sarmiento",
+      "descripcion": "Falta el cartel de PARE en la esquina.",
+      "direccion": "Sarmiento 500",
+      "estado": "cerrado",
+      "fechaApertura": "2026-08-05T16:48:00.000Z",
+      "fechaCierre": "2026-09-01T17:48:00.000Z",
+      "categoria": "Señalización",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Falta el cartel de PARE en la esquina.",
+          "fecha": "2026-08-05T16:48:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "El cartel del nombre de la calle está caído.",
+          "fecha": "2026-08-05T17:02:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "La senda peatonal está borrada, no se ve.",
+          "fecha": "2026-08-28T22:46:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Belgrano",
+      "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+      "direccion": "Belgrano 700",
+      "estado": "en_curso",
+      "fechaApertura": "2026-08-07T08:38:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Árbol caído",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+          "fecha": "2026-08-07T08:38:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Linares al 2050",
+      "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+      "direccion": "Linares 2050",
+      "estado": "abierto",
+      "fechaApertura": "2026-08-12T16:47:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Vereda rota",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-08-12T16:47:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-08-15T17:48:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-09-05T07:20:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-09-07T22:37:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Salta",
+      "descripcion": "Queda agua estancada varios días después de la lluvia.",
+      "direccion": "Salta 1000",
+      "estado": "cerrado",
+      "fechaApertura": "2026-08-13T11:04:00.000Z",
+      "fechaCierre": "2026-08-24T14:04:00.000Z",
+      "categoria": "Desagüe",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Queda agua estancada varios días después de la lluvia.",
+          "fecha": "2026-08-13T11:04:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+          "fecha": "2026-08-14T03:53:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-08-23T23:15:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Saavedra",
+      "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+      "direccion": "Saavedra 700",
+      "estado": "en_curso",
+      "fechaApertura": "2026-08-22T08:53:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Desagüe",
+      "zona": "Villa Farrell",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+          "fecha": "2026-08-22T08:53:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Queda agua estancada varios días después de la lluvia.",
+          "fecha": "2026-09-17T07:16:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Mengelle",
+      "descripcion": "El árbol caído rompió parte de la vereda.",
+      "direccion": "Mengelle 600",
+      "estado": "en_curso",
+      "fechaApertura": "2026-08-25T13:43:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Árbol caído",
+      "zona": "Confluencia",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "El árbol caído rompió parte de la vereda.",
+          "fecha": "2026-08-25T13:43:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-08-29T02:49:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Lanín",
+      "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+      "direccion": "Lanín 1250",
+      "estado": "en_curso",
+      "fechaApertura": "2026-08-26T10:15:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Desagüe",
+      "zona": "Confluencia",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+          "fecha": "2026-08-26T10:15:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Queda agua estancada varios días después de la lluvia.",
+          "fecha": "2026-09-13T01:42:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Bache en Olascoaga",
+      "descripcion": "Pozo profundo frente al número 700, peligroso para motos.",
+      "direccion": "Olascoaga 700",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-02T20:05:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Bache",
+      "zona": "Confluencia",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Pozo profundo frente al número 700, peligroso para motos.",
+          "fecha": "2026-09-02T20:05:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "El bache se agrandó con la lluvia, ya rompió una rueda.",
+          "fecha": "2026-09-03T04:55:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Hay un pozo grande en la calzada, los autos lo esquivan invadiendo el otro carril.",
+          "fecha": "2026-09-05T18:23:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Sigue el bache sin arreglar, cada vez está peor.",
+          "fecha": "2026-09-09T06:03:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Los Álamos",
+      "descripcion": "El desagüe tiene la reja rota.",
+      "direccion": "Los Álamos 1650",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-07T09:13:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Desagüe",
+      "zona": "Rincón de Emilio",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-09-07T09:13:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Microbasural en Láinez",
+      "descripcion": "Volvieron a tirar basura en el mismo lugar.",
+      "direccion": "Láinez 50",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-08T08:35:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Basural",
+      "zona": "Alta Barda",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Volvieron a tirar basura en el mismo lugar.",
+          "fecha": "2026-09-08T08:35:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Crouzeilles",
+      "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+      "direccion": "Crouzeilles 2050",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-10T11:58:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Árbol caído",
+      "zona": "Valentina Sur",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-09-10T11:58:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Anaya",
+      "descripcion": "El desagüe tiene la reja rota.",
+      "direccion": "Anaya 1750",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-12T15:38:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Desagüe",
+      "zona": "Bouquet Roldán",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-09-12T15:38:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Queda agua estancada varios días después de la lluvia.",
+          "fecha": "2026-09-18T12:48:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "El desagüe tiene la reja rota.",
+          "fecha": "2026-09-19T19:05:00.000Z"
+        },
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+          "fecha": "2026-09-22T21:21:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Sarmiento al 1800",
+      "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+      "direccion": "Sarmiento 1800",
+      "estado": "en_curso",
+      "fechaApertura": "2026-09-13T15:37:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Vereda rota",
+      "zona": "Santa Genoveva",
+      "reportes": [
+        {
+          "autor": "lucia.fernandez",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-09-13T15:37:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Desagüe tapado en Santa Fe",
+      "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+      "direccion": "Santa Fe 1050",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-13T16:55:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Desagüe",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "La boca de tormenta está tapada y se inunda la esquina cuando llueve.",
+          "fecha": "2026-09-13T16:55:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Bache en Belgrano",
+      "descripcion": "Sigue el bache sin arreglar, cada vez está peor.",
+      "direccion": "Belgrano 2150",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-19T08:25:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Bache",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Sigue el bache sin arreglar, cada vez está peor.",
+          "fecha": "2026-09-19T08:25:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Pozo profundo frente al número 2150, peligroso para motos.",
+          "fecha": "2026-09-21T10:07:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Luminaria apagada en Perito Moreno",
+      "descripcion": "Luminaria intermitente, se prende y se apaga toda la noche.",
+      "direccion": "Perito Moreno 1900",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-19T09:02:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Luminaria",
+      "zona": "Villa Farrell",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Luminaria intermitente, se prende y se apaga toda la noche.",
+          "fecha": "2026-09-19T09:02:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Señalización dañada en Solalique",
+      "descripcion": "Falta el cartel de PARE en la esquina.",
+      "direccion": "Solalique 1250",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-22T12:24:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Señalización",
+      "zona": "Rincón de Emilio",
+      "reportes": [
+        {
+          "autor": "sofia.ramirez",
+          "descripcion": "Falta el cartel de PARE en la esquina.",
+          "fecha": "2026-09-22T12:24:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "La senda peatonal está borrada, no se ve.",
+          "fecha": "2026-09-23T17:30:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "El cartel del nombre de la calle está caído.",
+          "fecha": "2026-09-25T11:09:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Árbol caído en Belgrano",
+      "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+      "direccion": "Belgrano 1550",
+      "estado": "cerrado",
+      "fechaApertura": "2026-09-24T10:00:00.000Z",
+      "fechaCierre": "2026-09-29T00:00:00.000Z",
+      "categoria": "Árbol caído",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Rama grande colgando sobre los cables, puede caerse.",
+          "fecha": "2026-09-24T10:00:00.000Z"
+        },
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Con el viento se cayó un árbol y bloquea media calle.",
+          "fecha": "2026-09-27T02:07:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Semáforo sin funcionar en Los Álamos",
+      "descripcion": "El semáforo está apagado en todas las direcciones.",
+      "direccion": "Los Álamos 1350",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-25T11:51:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Semáforo",
+      "zona": "Rincón de Emilio",
+      "reportes": [
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "El semáforo está apagado en todas las direcciones.",
+          "fecha": "2026-09-25T11:51:00.000Z"
+        },
+        {
+          "autor": "camila.torres",
+          "descripcion": "Queda en amarillo intermitente en hora pico, se arma mucho lío.",
+          "fecha": "2026-09-26T02:57:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Láinez al 2000",
+      "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+      "direccion": "Láinez 2000",
+      "estado": "cerrado",
+      "fechaApertura": "2026-09-27T18:36:00.000Z",
+      "fechaCierre": "2026-09-29T00:00:00.000Z",
+      "categoria": "Vereda rota",
+      "zona": "Alta Barda",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-09-27T18:36:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Semáforo sin funcionar en Belgrano",
+      "descripcion": "La luz verde peatonal no funciona.",
+      "direccion": "Belgrano 100",
+      "estado": "cerrado",
+      "fechaApertura": "2026-09-28T09:32:00.000Z",
+      "fechaCierre": "2026-09-29T00:00:00.000Z",
+      "categoria": "Semáforo",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "La luz verde peatonal no funciona.",
+          "fecha": "2026-09-28T09:32:00.000Z"
+        },
+        {
+          "autor": "valentina.diaz",
+          "descripcion": "Queda en amarillo intermitente en hora pico, se arma mucho lío.",
+          "fecha": "2026-09-28T21:56:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Vereda rota en Perito Moreno al 500",
+      "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+      "direccion": "Perito Moreno 500",
+      "estado": "abierto",
+      "fechaApertura": "2026-09-28T20:13:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Vereda rota",
+      "zona": "Villa Farrell",
+      "reportes": [
+        {
+          "autor": "diego.sosa",
+          "descripcion": "Las raíces levantaron las baldosas, una señora mayor se tropezó.",
+          "fecha": "2026-09-28T20:13:00.000Z"
+        },
+        {
+          "autor": "nicolas.herrera",
+          "descripcion": "Faltan baldosas y quedó un pozo en la vereda.",
+          "fecha": "2026-09-28T21:18:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "Vereda hundida, no se puede pasar con cochecito.",
+          "fecha": "2026-09-28T23:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "titulo": "Luminaria apagada en Belgrano",
+      "descripcion": "Luminaria intermitente, se prende y se apaga toda la noche.",
+      "direccion": "Belgrano 200",
+      "estado": "en_curso",
+      "fechaApertura": "2026-09-28T21:14:00.000Z",
+      "fechaCierre": null,
+      "categoria": "Luminaria",
+      "zona": "Centro",
+      "reportes": [
+        {
+          "autor": "camila.torres",
+          "descripcion": "Luminaria intermitente, se prende y se apaga toda la noche.",
+          "fecha": "2026-09-28T21:14:00.000Z"
+        },
+        {
+          "autor": "martin.gomez",
+          "descripcion": "La luz de la esquina no prende desde hace varios días.",
+          "fecha": "2026-09-28T21:43:00.000Z"
+        }
+      ]
+    }
+  ]
+}

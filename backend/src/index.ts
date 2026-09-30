@@ -15,14 +15,45 @@ type RolSeed = { type: string; name: string; description: string };
 type UsuarioSeed = { username: string; email: string; rol: string; bloqueado?: boolean };
 type SeedUsuarios = { roles: RolSeed[]; password: string; usuarios: UsuarioSeed[] };
 
+type ReporteSeed = { autor: string; descripcion: string; fecha: string };
+type IncidenteSeed = {
+  titulo: string;
+  descripcion: string;
+  direccion: string;
+  estado: 'abierto' | 'en_curso' | 'cerrado';
+  fechaApertura: string;
+  fechaCierre: string | null;
+  categoria: string;
+  zona: string;
+  reportes: ReporteSeed[];
+};
+type SeedIncidentes = {
+  categorias: { nombre: string; descripcion: string }[];
+  zonas: { nombre: string }[];
+  incidentes: IncidenteSeed[];
+};
+
+function leerSeed<T>(strapi: Core.Strapi, archivo: string): T {
+  const ruta = path.join(strapi.dirs.app.root, 'database', 'seed', archivo);
+  return JSON.parse(fs.readFileSync(ruta, 'utf8'));
+}
+
+// "Árbol caído" -> "arbol-caido"
+const slugify = (texto: string) =>
+  texto
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
 /**
  * Carga los roles y usuarios de prueba de database/seed/usuarios.json.
  * Es idempotente: solo crea lo que todavía no existe, así que se puede
  * correr en cada arranque sin duplicar datos.
  */
 async function seedUsuarios(strapi: Core.Strapi) {
-  const archivo = path.join(strapi.dirs.app.root, 'database', 'seed', 'usuarios.json');
-  const seed: SeedUsuarios = JSON.parse(fs.readFileSync(archivo, 'utf8'));
+  const seed = leerSeed<SeedUsuarios>(strapi, 'usuarios.json');
 
   const roleQuery = strapi.db.query('plugin::users-permissions.role');
   const rolesPorType: Record<string, number> = {};
@@ -53,6 +84,61 @@ async function seedUsuarios(strapi: Core.Strapi) {
   }
 
   if (creados > 0) strapi.log.info(`[seed] ${creados} usuarios de prueba creados`);
+}
+
+/**
+ * Carga categorías, zonas, incidentes y sus reportes de database/seed/incidentes.json.
+ * Categorías y zonas se crean si faltan; incidentes y reportes solo se cargan
+ * cuando no hay ningún incidente, para no duplicarlos en cada arranque.
+ * Necesita que los usuarios ya existan, porque cada reporte tiene un autor.
+ */
+async function seedIncidentes(strapi: Core.Strapi) {
+  const seed = leerSeed<SeedIncidentes>(strapi, 'incidentes.json');
+
+  const categorias: Record<string, string> = {};
+  for (const { nombre, descripcion } of seed.categorias) {
+    const existente = await strapi.documents('api::categoria.categoria').findFirst({ filters: { nombre } });
+    categorias[nombre] = (
+      existente ??
+      (await strapi.documents('api::categoria.categoria').create({
+        data: { nombre, slug: slugify(nombre), descripcion },
+      }))
+    ).documentId;
+  }
+
+  const zonas: Record<string, string> = {};
+  for (const { nombre } of seed.zonas) {
+    const existente = await strapi.documents('api::zona.zona').findFirst({ filters: { nombre } });
+    zonas[nombre] = (
+      existente ?? (await strapi.documents('api::zona.zona').create({ data: { nombre, slug: slugify(nombre) } }))
+    ).documentId;
+  }
+
+  if ((await strapi.documents('api::incidente.incidente').count({})) > 0) return;
+
+  const usuarios = await strapi.db.query('plugin::users-permissions.user').findMany({ select: ['username', 'documentId'] });
+  const autores: Record<string, string> = Object.fromEntries(usuarios.map((u) => [u.username, u.documentId]));
+
+  let reportes = 0;
+  for (const { reportes: reportesSeed, categoria, zona, fechaCierre, ...incidente } of seed.incidentes) {
+    const creado = await strapi.documents('api::incidente.incidente').create({
+      data: {
+        ...incidente,
+        ...(fechaCierre && { fechaCierre }),
+        categoria: categorias[categoria],
+        zona: zonas[zona],
+      },
+    });
+
+    for (const { autor, ...reporte } of reportesSeed) {
+      await strapi.documents('api::reporte.reporte').create({
+        data: { ...reporte, incidente: creado.documentId, autor: autores[autor] },
+      });
+      reportes++;
+    }
+  }
+
+  strapi.log.info(`[seed] ${seed.incidentes.length} incidentes y ${reportes} reportes creados`);
 }
 
 export default {
@@ -89,6 +175,9 @@ export default {
       }
     }
 
-    if (process.env.NODE_ENV !== 'production') await seedUsuarios(strapi);
+    if (process.env.NODE_ENV !== 'production') {
+      await seedUsuarios(strapi);
+      await seedIncidentes(strapi);
+    }
   },
 };
