@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import type { Core } from '@strapi/strapi';
 
 // Acciones de solo lectura que el rol Public puede usar en la API REST.
@@ -8,6 +10,50 @@ const PERMISOS_PUBLICOS = ['categoria', 'zona', 'incidente', 'reporte'].flatMap(
   `api::${nombre}.${nombre}.find`,
   `api::${nombre}.${nombre}.findOne`,
 ]);
+
+type RolSeed = { type: string; name: string; description: string };
+type UsuarioSeed = { username: string; email: string; rol: string; bloqueado?: boolean };
+type SeedUsuarios = { roles: RolSeed[]; password: string; usuarios: UsuarioSeed[] };
+
+/**
+ * Carga los roles y usuarios de prueba de database/seed/usuarios.json.
+ * Es idempotente: solo crea lo que todavía no existe, así que se puede
+ * correr en cada arranque sin duplicar datos.
+ */
+async function seedUsuarios(strapi: Core.Strapi) {
+  const archivo = path.join(strapi.dirs.app.root, 'database', 'seed', 'usuarios.json');
+  const seed: SeedUsuarios = JSON.parse(fs.readFileSync(archivo, 'utf8'));
+
+  const roleQuery = strapi.db.query('plugin::users-permissions.role');
+  const rolesPorType: Record<string, number> = {};
+
+  for (const rol of seed.roles) {
+    const existente = await roleQuery.findOne({ where: { type: rol.type } });
+    rolesPorType[rol.type] = existente ? existente.id : (await roleQuery.create({ data: rol })).id;
+  }
+
+  const userQuery = strapi.db.query('plugin::users-permissions.user');
+  const userService = strapi.plugin('users-permissions').service('user');
+  let creados = 0;
+
+  for (const usuario of seed.usuarios) {
+    if (await userQuery.findOne({ where: { email: usuario.email } })) continue;
+
+    // add() usa el Document Service, que hashea la contraseña
+    await userService.add({
+      username: usuario.username,
+      email: usuario.email,
+      password: seed.password,
+      provider: 'local',
+      confirmed: true,
+      blocked: usuario.bloqueado ?? false,
+      role: rolesPorType[usuario.rol],
+    });
+    creados++;
+  }
+
+  if (creados > 0) strapi.log.info(`[seed] ${creados} usuarios de prueba creados`);
+}
 
 export default {
   /**
@@ -30,17 +76,19 @@ export default {
       .query('plugin::users-permissions.role')
       .findOne({ where: { type: 'public' } });
 
-    if (!rolPublico) return;
-
-    const existentes = await strapi.db
-      .query('plugin::users-permissions.permission')
-      .findMany({ where: { role: rolPublico.id, action: { $in: PERMISOS_PUBLICOS } } });
-    const yaAsignados = new Set(existentes.map((permiso) => permiso.action));
-
-    for (const action of PERMISOS_PUBLICOS.filter((a) => !yaAsignados.has(a))) {
-      await strapi.db
+    if (rolPublico) {
+      const existentes = await strapi.db
         .query('plugin::users-permissions.permission')
-        .create({ data: { action, role: rolPublico.id } });
+        .findMany({ where: { role: rolPublico.id, action: { $in: PERMISOS_PUBLICOS } } });
+      const yaAsignados = new Set(existentes.map((permiso) => permiso.action));
+
+      for (const action of PERMISOS_PUBLICOS.filter((a) => !yaAsignados.has(a))) {
+        await strapi.db
+          .query('plugin::users-permissions.permission')
+          .create({ data: { action, role: rolPublico.id } });
+      }
     }
+
+    if (process.env.NODE_ENV !== 'production') await seedUsuarios(strapi);
   },
 };

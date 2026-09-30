@@ -1,0 +1,20 @@
+{
+  "roles": [
+    { "type": "vecino", "name": "Vecino", "description": "Reporta problemas en la vía pública" },
+    { "type": "operador", "name": "Operador", "description": "Gestiona incidentes del organismo de mantenimiento" },
+    { "type": "administrador", "name": "Administrador", "description": "Administra el organismo y ve los indicadores" }
+  ],
+  "password": "Snapit1234",
+  "usuarios": [
+    { "username": "lucia.fernandez", "email": "lucia.fernandez@snapit.test", "rol": "vecino" },
+    { "username": "martin.gomez", "email": "martin.gomez@snapit.test", "rol": "vecino" },
+    { "username": "sofia.ramirez", "email": "sofia.ramirez@snapit.test", "rol": "vecino" },
+    { "username": "diego.sosa", "email": "diego.sosa@snapit.test", "rol": "vecino" },
+    { "username": "valentina.diaz", "email": "valentina.diaz@snapit.test", "rol": "vecino" },
+    { "username": "nicolas.herrera", "email": "nicolas.herrera@snapit.test", "rol": "vecino" },
+    { "username": "camila.torres", "email": "camila.torres@snapit.test", "rol": "vecino", "bloqueado": true },
+    { "username": "julian.moreno", "email": "julian.moreno@snapit.test", "rol": "operador" },
+    { "username": "florencia.castro", "email": "florencia.castro@snapit.test", "rol": "operador" },
+    { "username": "admin", "email": "admin@snapit.test", "rol": "administrador" }
+  ]
+}
