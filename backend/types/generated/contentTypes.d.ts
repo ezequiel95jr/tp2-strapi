@@ -532,7 +532,7 @@ export interface ApiReporteReporte extends Struct.CollectionTypeSchema {
   };
   attributes: {
     autor: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
     createdAt: Schema.Attribute.DateTime;
