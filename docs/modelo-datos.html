@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:0}</style>
+<title>Modelo de datos SnapIt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Overpass+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --ground: #f2f4f2;
+    --surface: #ffffff;
+    --ink: #1d2528;
+    --ink-soft: #55615e;
+    --line: #8a9690;
+    --rule: #dde2df;
+    --head: #1d2528;
+    --head-ink: #f2f4f2;
+    --plugin-head: #cfd6d3;
+    --plugin-ink: #3c4744;
+    --amber: #c98a00;
+    --amber-soft: #fbf1d6;
+    --font: "Overpass", "Segoe UI", system-ui, sans-serif;
+    --mono: "Overpass Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #151b1d;
+      --surface: #1d2528;
+      --ink: #e6ebe8;
+      --ink-soft: #9aa7a2;
+      --line: #7c8984;
+      --rule: #2e383a;
+      --head: #e6ebe8;
+      --head-ink: #151b1d;
+      --plugin-head: #37423f;
+      --plugin-ink: #d3dbd8;
+      --amber: #f0b43a;
+      --amber-soft: #3a2f14;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #151b1d;
+    --surface: #1d2528;
+    --ink: #e6ebe8;
+    --ink-soft: #9aa7a2;
+    --line: #7c8984;
+    --rule: #2e383a;
+    --head: #e6ebe8;
+    --head-ink: #151b1d;
+    --plugin-head: #37423f;
+    --plugin-ink: #d3dbd8;
+    --amber: #f0b43a;
+    --amber-soft: #3a2f14;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .page {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+    display: grid;
+    gap: 44px;
+  }
+  @media (max-width: 600px) { .page { padding: 28px 16px 48px; gap: 32px; } }
+
+  header { display: grid; gap: 10px; max-width: 68ch; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  h1 {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  h1 .stripe {
+    display: inline-block;
+    width: 0.9em;
+    height: 0.22em;
+    margin-right: 0.3em;
+    vertical-align: 0.2em;
+    background: repeating-linear-gradient(90deg, var(--amber) 0 0.3em, transparent 0.3em 0.45em);
+  }
+  .lede { margin: 0; color: var(--ink-soft); font-size: 16px; }
+
+  h2 {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 800;
+    text-wrap: balance;
+  }
+  h2 small {
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-left: 8px;
+  }
+
+  /* Leyenda */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .legend li { display: flex; align-items: center; gap: 8px; }
+  .legend svg { flex: none; }
+  .legend .k { font-family: var(--mono); font-weight: 600; font-size: 12px; color: var(--ink); }
+
+  /* Diagrama */
+  figure { margin: 0; }
+  .scroll {
+    overflow-x: auto;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+  }
+  .mer { display: block; width: 100%; min-width: 900px; height: auto; }
+  figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-soft); max-width: 80ch; }
+
+  .mer text { font-family: var(--mono); font-size: 12px; }
+  .mer .lane { font-family: var(--font); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--ink-soft); }
+  .ent-body { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+  .ent-head { fill: var(--head); }
+  .ent-title { font-family: var(--font) !important; font-size: 15px !important; font-weight: 800; fill: var(--head-ink); }
+  .ent-api { font-size: 10px !important; fill: var(--head-ink); opacity: 0.7; }
+  .plugin .ent-body { stroke: var(--line); stroke-dasharray: 5 4; }
+  .plugin .ent-head { fill: var(--plugin-head); }
+  .plugin .ent-title, .plugin .ent-api { fill: var(--plugin-ink); }
+  .row-rule { stroke: var(--rule); stroke-width: 1; }
+  .col-name { fill: var(--ink); }
+  .col-name.pk { font-weight: 600; text-decoration: underline; }
+  .col-type { fill: var(--ink-soft); }
+  .key { font-size: 10px !important; font-weight: 600; fill: var(--ink-soft); }
+  .key-fk { fill: var(--amber); }
+
+  .rel-line { fill: none; stroke: var(--line); stroke-width: 1.5; }
+  .rel-mark { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+  .card { font-size: 11px !important; font-weight: 600; fill: var(--ink-soft); }
+  .verb { font-family: var(--font) !important; font-size: 12px !important; font-style: italic; fill: var(--ink-soft); }
+  .changed .rel-line { stroke: var(--amber); stroke-width: 2.5; }
+  .changed .rel-mark { stroke: var(--amber); stroke-width: 2; }
+  .changed .verb, .changed .card { fill: var(--amber); font-weight: 600; }
+
+  /* Modelo relacional */
+  .mr {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .mr > div { background: var(--surface); padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+  .mr code { font-family: var(--mono); font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
+  .mr .tbl { font-weight: 600; }
+  .mr u { text-underline-offset: 3px; }
+  .mr .fk { color: var(--amber); }
+  .mr .plug { font-size: 11px; font-family: var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+
+  /* Notas */
+  .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+  .notes section { display: grid; gap: 10px; align-content: start; }
+  .notes h3 { margin: 0; font-size: 15px; font-weight: 800; }
+  .notes p { margin: 0; color: var(--ink-soft); max-width: 62ch; }
+  .notes code, .inline { font-family: var(--mono); font-size: 13px; color: var(--ink); }
+  .notes ul { margin: 0; padding-left: 18px; color: var(--ink-soft); display: grid; gap: 4px; }
+  .callout {
+    background: var(--amber-soft);
+    border-left: 3px solid var(--amber);
+    padding: 12px 14px;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout p { color: var(--ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <span class="eyebrow">TP2 · Strapi 5 · Full Stack F.C.</span>
+    <h1><span class="stripe" aria-hidden="true"></span>Modelo de datos SnapIt</h1>
+    <p class="lede">Las cuatro entidades del grupo y las dos que aporta el plugin Users &amp; Permissions, con sus relaciones tal como están definidas en los <span class="inline">schema.json</span> del backend.</p>
+  </header>
+
+  <section>
+    <h2>Diagrama entidad-relación <small>MER</small></h2>
+    <ul class="legend">
+      <li><span class="k">PK</span> clave primaria</li>
+      <li><span class="k" style="color:var(--amber)">FK</span> clave foránea</li>
+      <li><span class="k">UQ</span> valor único</li>
+      <li>
+        <svg width="46" height="16" viewBox="0 0 46 16" aria-hidden="true"><line x1="0" y1="8" x2="46" y2="8" stroke="var(--line)" stroke-width="1.5"/><line x1="6" y1="1" x2="6" y2="15" stroke="var(--ink)" stroke-width="1.5"/><line x1="12" y1="1" x2="12" y2="15" stroke="var(--ink)" stroke-width="1.5"/><line x1="24" y1="1" x2="24" y2="15" stroke="var(--ink)" stroke-width="1.5"/><path d="M30 8 L46 0 M30 8 L46 16" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg>
+        uno a muchos (1:N)
+      </li>
+      <li>
+        <svg width="34" height="16" viewBox="0 0 34 16" aria-hidden="true"><rect x="1" y="1" width="32" height="14" rx="2" fill="none" stroke="var(--line)" stroke-dasharray="4 3" stroke-width="1.5"/></svg>
+        entidad del plugin (no se modela)
+      </li>
+      <li>
+        <svg width="34" height="16" viewBox="0 0 34 16" aria-hidden="true"><line x1="0" y1="8" x2="34" y2="8" stroke="var(--amber)" stroke-width="2.5"/></svg>
+        relación modificada
+      </li>
+    </ul>
+    <figure>
+      <div class="scroll">
+<svg class="mer" viewBox="0 0 1170 680" role="img" aria-label="Diagrama entidad-relación: Categoría y Zona clasifican y ubican Incidentes; cada Incidente agrupa muchos Reportes; cada User escribe muchos Reportes; cada Role se asigna a muchos Users.">
+<text class="lane" x="40" y="40">Catálogos</text>
+<text class="lane" x="420" y="40">Núcleo del dominio</text>
+<text class="lane" x="870" y="40">Aportes de vecinos</text>
+<g class="rel "><path class="rel-line" d="M270 120 H335 V288 H420"/><line class="rel-mark" x1="280" x2="280" y1="113" y2="127"/><line class="rel-mark" x1="286" x2="286" y1="113" y2="127"/><path class="rel-mark" d="M404 288 L420 280 M404 288 L420 296"/><line class="rel-mark" x1="398" x2="398" y1="281" y2="295"/><text class="card" x="294" y="112" text-anchor="start">1</text><text class="card" x="392" y="279" text-anchor="end">N</text><text class="verb" x="343" y="190" text-anchor="start">clasifica</text></g>
+<g class="rel "><path class="rel-line" d="M270 400 H365 V312 H420"/><line class="rel-mark" x1="280" x2="280" y1="393" y2="407"/><line class="rel-mark" x1="286" x2="286" y1="393" y2="407"/><path class="rel-mark" d="M404 312 L420 304 M404 312 L420 320"/><line class="rel-mark" x1="398" x2="398" y1="305" y2="319"/><text class="card" x="294" y="392" text-anchor="start">1</text><text class="card" x="392" y="303" text-anchor="end">N</text><text class="verb" x="373" y="355" text-anchor="start">ubica</text></g>
+<g class="rel "><path class="rel-line" d="M690 120 H780 V216 H870"/><line class="rel-mark" x1="700" x2="700" y1="113" y2="127"/><line class="rel-mark" x1="706" x2="706" y1="113" y2="127"/><path class="rel-mark" d="M854 216 L870 208 M854 216 L870 224"/><line class="rel-mark" x1="848" x2="848" y1="209" y2="223"/><text class="card" x="714" y="112" text-anchor="start">1</text><text class="card" x="842" y="207" text-anchor="end">N</text><text class="verb" x="788" y="160" text-anchor="start">agrupa</text></g>
+<g class="rel changed"><path class="rel-line" d="M870 460 H830 V240 H870"/><line class="rel-mark" x1="860" x2="860" y1="453" y2="467"/><line class="rel-mark" x1="854" x2="854" y1="453" y2="467"/><path class="rel-mark" d="M854 240 L870 232 M854 240 L870 248"/><line class="rel-mark" x1="848" x2="848" y1="233" y2="247"/><text class="card" x="846" y="452" text-anchor="end">1</text><text class="card" x="842" y="231" text-anchor="end">N</text><text class="verb" x="822" y="340" text-anchor="end">escribe</text></g>
+<g class="rel "><path class="rel-line" d="M690 530 H780 V604 H870"/><line class="rel-mark" x1="700" x2="700" y1="523" y2="537"/><line class="rel-mark" x1="706" x2="706" y1="523" y2="537"/><path class="rel-mark" d="M854 604 L870 596 M854 604 L870 612"/><line class="rel-mark" x1="848" x2="848" y1="597" y2="611"/><text class="card" x="714" y="522" text-anchor="start">1</text><text class="card" x="842" y="595" text-anchor="end">N</text><text class="verb" x="772" y="560" text-anchor="end">asigna</text></g>
+<g class="ent"><rect class="ent-body" x="40" y="70" width="230" height="144" rx="4"/><rect class="ent-head" x="40" y="70" width="230" height="38" rx="4"/><rect class="ent-head" x="40" y="102" width="230" height="6"/><text class="ent-title" x="54" y="94">Categoría</text><text class="ent-api" x="256" y="94" text-anchor="end">api::categoria</text><text class="key key-pk" x="54" y="124">PK</text><text class="col-name pk" x="84" y="124">id</text><text class="col-type" x="256" y="124" text-anchor="end">integer</text><line class="row-rule" x1="50" x2="260" y1="132" y2="132"/><text class="key key-uq" x="54" y="148">UQ</text><text class="col-name" x="84" y="148">nombre</text><text class="col-type" x="256" y="148" text-anchor="end">string</text><line class="row-rule" x1="50" x2="260" y1="156" y2="156"/><text class="key key-uq" x="54" y="172">UQ</text><text class="col-name" x="84" y="172">slug</text><text class="col-type" x="256" y="172" text-anchor="end">uid</text><line class="row-rule" x1="50" x2="260" y1="180" y2="180"/><text class="col-name" x="84" y="196">descripcion</text><text class="col-type" x="256" y="196" text-anchor="end">text</text></g>
+<g class="ent"><rect class="ent-body" x="40" y="350" width="230" height="120" rx="4"/><rect class="ent-head" x="40" y="350" width="230" height="38" rx="4"/><rect class="ent-head" x="40" y="382" width="230" height="6"/><text class="ent-title" x="54" y="374">Zona</text><text class="ent-api" x="256" y="374" text-anchor="end">api::zona</text><text class="key key-pk" x="54" y="404">PK</text><text class="col-name pk" x="84" y="404">id</text><text class="col-type" x="256" y="404" text-anchor="end">integer</text><line class="row-rule" x1="50" x2="260" y1="412" y2="412"/><text class="key key-uq" x="54" y="428">UQ</text><text class="col-name" x="84" y="428">nombre</text><text class="col-type" x="256" y="428" text-anchor="end">string</text><line class="row-rule" x1="50" x2="260" y1="436" y2="436"/><text class="key key-uq" x="54" y="452">UQ</text><text class="col-name" x="84" y="452">slug</text><text class="col-type" x="256" y="452" text-anchor="end">uid</text></g>
+<g class="ent"><rect class="ent-body" x="420" y="70" width="270" height="264" rx="4"/><rect class="ent-head" x="420" y="70" width="270" height="38" rx="4"/><rect class="ent-head" x="420" y="102" width="270" height="6"/><text class="ent-title" x="434" y="94">Incidente</text><text class="ent-api" x="676" y="94" text-anchor="end">api::incidente</text><text class="key key-pk" x="434" y="124">PK</text><text class="col-name pk" x="464" y="124">id</text><text class="col-type" x="676" y="124" text-anchor="end">integer</text><line class="row-rule" x1="430" x2="680" y1="132" y2="132"/><text class="col-name" x="464" y="148">titulo</text><text class="col-type" x="676" y="148" text-anchor="end">string</text><line class="row-rule" x1="430" x2="680" y1="156" y2="156"/><text class="col-name" x="464" y="172">descripcion</text><text class="col-type" x="676" y="172" text-anchor="end">text</text><line class="row-rule" x1="430" x2="680" y1="180" y2="180"/><text class="col-name" x="464" y="196">direccion</text><text class="col-type" x="676" y="196" text-anchor="end">string</text><line class="row-rule" x1="430" x2="680" y1="204" y2="204"/><text class="col-name" x="464" y="220">estado</text><text class="col-type" x="676" y="220" text-anchor="end">enum</text><line class="row-rule" x1="430" x2="680" y1="228" y2="228"/><text class="col-name" x="464" y="244">fechaApertura</text><text class="col-type" x="676" y="244" text-anchor="end">datetime</text><line class="row-rule" x1="430" x2="680" y1="252" y2="252"/><text class="col-name" x="464" y="268">fechaCierre</text><text class="col-type" x="676" y="268" text-anchor="end">datetime?</text><line class="row-rule" x1="430" x2="680" y1="276" y2="276"/><text class="key key-fk" x="434" y="292">FK</text><text class="col-name" x="464" y="292">categoria</text><text class="col-type" x="676" y="292" text-anchor="end">→ Categoría</text><line class="row-rule" x1="430" x2="680" y1="300" y2="300"/><text class="key key-fk" x="434" y="316">FK</text><text class="col-name" x="464" y="316">zona</text><text class="col-type" x="676" y="316" text-anchor="end">→ Zona</text></g>
+<g class="ent"><rect class="ent-body" x="870" y="70" width="260" height="192" rx="4"/><rect class="ent-head" x="870" y="70" width="260" height="38" rx="4"/><rect class="ent-head" x="870" y="102" width="260" height="6"/><text class="ent-title" x="884" y="94">Reporte</text><text class="ent-api" x="1116" y="94" text-anchor="end">api::reporte</text><text class="key key-pk" x="884" y="124">PK</text><text class="col-name pk" x="914" y="124">id</text><text class="col-type" x="1116" y="124" text-anchor="end">integer</text><line class="row-rule" x1="880" x2="1120" y1="132" y2="132"/><text class="col-name" x="914" y="148">descripcion</text><text class="col-type" x="1116" y="148" text-anchor="end">text</text><line class="row-rule" x1="880" x2="1120" y1="156" y2="156"/><text class="col-name" x="914" y="172">foto</text><text class="col-type" x="1116" y="172" text-anchor="end">media?</text><line class="row-rule" x1="880" x2="1120" y1="180" y2="180"/><text class="col-name" x="914" y="196">fecha</text><text class="col-type" x="1116" y="196" text-anchor="end">datetime</text><line class="row-rule" x1="880" x2="1120" y1="204" y2="204"/><text class="key key-fk" x="884" y="220">FK</text><text class="col-name" x="914" y="220">incidente</text><text class="col-type" x="1116" y="220" text-anchor="end">→ Incidente</text><line class="row-rule" x1="880" x2="1120" y1="228" y2="228"/><text class="key key-fk" x="884" y="244">FK</text><text class="col-name" x="914" y="244">autor</text><text class="col-type" x="1116" y="244" text-anchor="end">→ User</text></g>
+<g class="ent plugin"><rect class="ent-body" x="870" y="410" width="260" height="216" rx="4"/><rect class="ent-head" x="870" y="410" width="260" height="38" rx="4"/><rect class="ent-head" x="870" y="442" width="260" height="6"/><text class="ent-title" x="884" y="434">User</text><text class="ent-api" x="1116" y="434" text-anchor="end">plugin::users-permissions</text><text class="key key-pk" x="884" y="464">PK</text><text class="col-name pk" x="914" y="464">id</text><text class="col-type" x="1116" y="464" text-anchor="end">integer</text><line class="row-rule" x1="880" x2="1120" y1="472" y2="472"/><text class="key key-uq" x="884" y="488">UQ</text><text class="col-name" x="914" y="488">username</text><text class="col-type" x="1116" y="488" text-anchor="end">string</text><line class="row-rule" x1="880" x2="1120" y1="496" y2="496"/><text class="col-name" x="914" y="512">email</text><text class="col-type" x="1116" y="512" text-anchor="end">email</text><line class="row-rule" x1="880" x2="1120" y1="520" y2="520"/><text class="col-name" x="914" y="536">password</text><text class="col-type" x="1116" y="536" text-anchor="end">hash</text><line class="row-rule" x1="880" x2="1120" y1="544" y2="544"/><text class="col-name" x="914" y="560">confirmed</text><text class="col-type" x="1116" y="560" text-anchor="end">boolean</text><line class="row-rule" x1="880" x2="1120" y1="568" y2="568"/><text class="col-name" x="914" y="584">blocked</text><text class="col-type" x="1116" y="584" text-anchor="end">boolean</text><line class="row-rule" x1="880" x2="1120" y1="592" y2="592"/><text class="key key-fk" x="884" y="608">FK</text><text class="col-name" x="914" y="608">role</text><text class="col-type" x="1116" y="608" text-anchor="end">→ Role</text></g>
+<g class="ent plugin"><rect class="ent-body" x="420" y="480" width="270" height="120" rx="4"/><rect class="ent-head" x="420" y="480" width="270" height="38" rx="4"/><rect class="ent-head" x="420" y="512" width="270" height="6"/><text class="ent-title" x="434" y="504">Role</text><text class="ent-api" x="676" y="504" text-anchor="end">plugin::users-permissions</text><text class="key key-pk" x="434" y="534">PK</text><text class="col-name pk" x="464" y="534">id</text><text class="col-type" x="676" y="534" text-anchor="end">integer</text><line class="row-rule" x1="430" x2="680" y1="542" y2="542"/><text class="col-name" x="464" y="558">name</text><text class="col-type" x="676" y="558" text-anchor="end">string</text><line class="row-rule" x1="430" x2="680" y1="566" y2="566"/><text class="key key-uq" x="434" y="582">UQ</text><text class="col-name" x="464" y="582">type</text><text class="col-type" x="676" y="582" text-anchor="end">string</text></g>
+</svg>
+      </div>
+      <figcaption>Todas las relaciones son 1:N. La categoría y la zona clasifican y ubican al incidente; cada incidente agrupa los reportes que hacen los vecinos, y cada reporte tiene un único autor.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Modelo relacional <small>MR</small></h2>
+    <div class="mr">
+      <div><code><span class="tbl">categorias</span> (<u>id</u>, nombre, slug, descripcion)</code></div>
+      <div><code><span class="tbl">zonas</span> (<u>id</u>, nombre, slug)</code></div>
+      <div><code><span class="tbl">incidentes</span> (<u>id</u>, titulo, descripcion, direccion, estado, fecha_apertura, fecha_cierre, <span class="fk">categoria_id</span> → categorias, <span class="fk">zona_id</span> → zonas)</code></div>
+      <div><code><span class="tbl">reportes</span> (<u>id</u>, descripcion, foto, fecha, <span class="fk">incidente_id</span> → incidentes, <span class="fk">autor_id</span> → up_users)</code></div>
+      <div><span class="plug">plugin</span><code><span class="tbl">up_users</span> (<u>id</u>, username, email, password, confirmed, blocked, <span class="fk">role_id</span> → up_roles)</code></div>
+      <div><span class="plug">plugin</span><code><span class="tbl">up_roles</span> (<u>id</u>, name, type)</code></div>
+    </div>
+  </section>
+
+  <div class="notes">
+    <section>
+      <h3>Cómo lo guarda Strapi en SQLite</h3>
+      <p>El MR de arriba es el modelo lógico. En la base, Strapi no pone la clave foránea en la tabla: cada relación va en una tabla de enlace propia.</p>
+      <div class="chips">
+        <span class="chip">incidentes_categoria_lnk</span>
+        <span class="chip">incidentes_zona_lnk</span>
+        <span class="chip">reportes_incidente_lnk</span>
+        <span class="chip">reportes_autor_lnk</span>
+        <span class="chip">up_users_role_lnk</span>
+        <span class="chip">files_related_mph</span>
+      </div>
+      <p>Además agrega a cada tabla <code>document_id</code>, <code>created_at</code>, <code>updated_at</code>, <code>published_at</code>, <code>created_by_id</code>, <code>updated_by_id</code> y <code>locale</code>. La foto del reporte vive en la Media Library y se enlaza por <code>files_related_mph</code>.</p>
+    </section>
+    <section>
+      <h3>Valores cerrados</h3>
+      <ul>
+        <li><code>incidente.estado</code>: abierto, en_curso, cerrado</li>
+        <li><code>role.type</code>: vecino, operador, administrador (más public y authenticated, que trae Strapi)</li>
+        <li><code>fechaCierre</code> y <code>foto</code> son opcionales</li>
+      </ul>
+      <div class="callout">
+        <p><strong>Reporte → User pasó de 1:1 a N:1.</strong> Con <code>oneToOne</code> cada usuario podía tener un solo reporte. El cambio está en la rama <code>feature/seed-reportes</code> y hay que consultarlo con el grupo antes de mergearlo.</p>
+      </div>
+    </section>
+  </div>
+</div>
+</body>
+</html>
