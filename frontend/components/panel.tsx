@@ -3,7 +3,6 @@ import Link from "next/link";
 const enlaces = [
   { href: "/", texto: "Dashboard" },
   { href: "/incidentes", texto: "Incidentes" },
-  { href: "/indicadores", texto: "Indicadores" },
 ];
 
 export function PanelLateral({ actual }: { actual: string }) {

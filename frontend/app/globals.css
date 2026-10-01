@@ -22,8 +22,11 @@
   --color-brand-900: #262e89;
   --color-brand-950: #161950;
 
+  --color-success-50: #f0fdf4;
   --color-success-500: #22c55e;
+  --color-warning-50: #fffbeb;
   --color-warning-500: #f59e0b;
+  --color-error-50: #fef2f2;
   --color-error-500: #ef4444;
 }
 

@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { Contenido, Panel, PanelEncabezado, PanelLateral } from "@/components/panel";
-import {
-  obtenerCategorias,
-  obtenerIncidentes,
-  obtenerZonas,
-} from "@/lib/api";
-import { estadoDe, ESTADOS, formatearFecha } from "@/lib/formato";
+import { obtenerIncidentes } from "@/lib/api";
+import { estadoDe, formatearFecha } from "@/lib/formato";
 
 export const metadata = {
   title: "Incidentes | SnapIt",
@@ -13,9 +9,6 @@ export const metadata = {
 
 type Props = {
   searchParams: Promise<{
-    estado?: string;
-    categoria?: string;
-    zona?: string;
     pagina?: string;
   }>;
 };
@@ -27,32 +20,17 @@ export default async function Incidentes({ searchParams }: Props) {
 
   const pagina = Number(params.pagina ?? "1") || 1;
 
-  const [respuesta, categorias, zonas] = await Promise.all([
-    obtenerIncidentes({
-      pagina,
-      porPagina: POR_PAGINA,
-      estado: params.estado,
-      categoria: params.categoria,
-      zona: params.zona,
-    }),
-    obtenerCategorias(),
-    obtenerZonas(),
-  ]);
+  const respuesta = await obtenerIncidentes({
+    pagina,
+    porPagina: POR_PAGINA,
+  });
 
   const { pagination } = respuesta.meta;
 
-  const filtroActivo = Boolean(params.estado || params.categoria || params.zona);
-
   function construirPagina(nuevaPagina: number): string {
-    const query = new URLSearchParams();
-
-    if (params.estado) query.set("estado", params.estado);
-    if (params.categoria) query.set("categoria", params.categoria);
-    if (params.zona) query.set("zona", params.zona);
-    if (nuevaPagina > 1) query.set("pagina", String(nuevaPagina));
-
-    const texto = query.toString();
-    return texto ? `/incidentes?${texto}` : "/incidentes";
+    return nuevaPagina > 1
+      ? `/incidentes?pagina=${nuevaPagina}`
+      : "/incidentes";
   }
 
   return (
@@ -65,74 +43,7 @@ export default async function Incidentes({ searchParams }: Props) {
         />
 
         <Contenido>
-          <form
-            method="get"
-            action="/incidentes"
-            className="flex flex-wrap items-end gap-4 rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900"
-          >
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-gray-500">Categoria</span>
-              <select
-                name="categoria"
-                defaultValue={params.categoria ?? ""}
-                className="rounded-lg border border-gray-200 px-3 py-2 dark:border-gray-800 dark:bg-gray-800"
-              >
-                <option value="">Todas</option>
-                {categorias.data.map((categoria) => (
-                  <option key={categoria.slug} value={categoria.slug}>
-                    {categoria.nombre}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-gray-500">Zona</span>
-              <select
-                name="zona"
-                defaultValue={params.zona ?? ""}
-                className="rounded-lg border border-gray-200 px-3 py-2 dark:border-gray-800 dark:bg-gray-800"
-              >
-                <option value="">Todas</option>
-                {zonas.data.map((zona) => (
-                  <option key={zona.slug} value={zona.slug}>
-                    {zona.nombre}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="text-gray-500">Estado</span>
-              <select
-                name="estado"
-                defaultValue={params.estado ?? ""}
-                className="rounded-lg border border-gray-200 px-3 py-2 dark:border-gray-800 dark:bg-gray-800"
-              >
-                <option value="">Todos</option>
-                {Object.entries(ESTADOS).map(([valor, estado]) => (
-                  <option key={valor} value={valor}>
-                    {estado.texto}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <button className="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600">
-              Aplicar
-            </button>
-
-            {filtroActivo && (
-              <Link
-                href="/incidentes"
-                className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-800"
-              >
-                Limpiar
-              </Link>
-            )}
-          </form>
-
-          <div className="mt-8 overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
             <table className="w-full text-left text-sm">
               <thead className="border-b border-gray-200 text-xs uppercase text-gray-500 dark:border-gray-800">
                 <tr>
@@ -193,7 +104,7 @@ export default async function Incidentes({ searchParams }: Props) {
                       colSpan={6}
                       className="px-6 py-12 text-center text-gray-500"
                     >
-                      No hay incidentes que coincidan con los filtros.
+                      Todavia no hay incidentes cargados.
                     </td>
                   </tr>
                 )}

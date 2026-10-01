@@ -79,6 +79,12 @@ export function obtenerIncidente(
   return pedir(`/api/incidentes/${documentId}?populate=*`);
 }
 
+export function contarIncidentes(estado: string): Promise<number> {
+  return pedir<{ meta: { pagination: { total: number } } }>(
+    `/api/incidentes?${construirQuery({ estado, porPagina: 1 })}`,
+  ).then((r) => r.meta.pagination.total);
+}
+
 export function obtenerCategorias(): Promise<{ data: Categoria[] }> {
   return pedir("/api/categorias?pagination[pageSize]=100&sort=nombre:asc");
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Contenido, Panel, PanelEncabezado, PanelLateral } from "@/components/panel";
-import { obtenerIncidentes } from "@/lib/api";
+import { contarIncidentes, obtenerIncidentes, obtenerZonas } from "@/lib/api";
 import { estadoDe, formatearFecha } from "@/lib/formato";
 
 export const metadata = {
@@ -8,10 +8,12 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const respuesta = await obtenerIncidentes({
-    pagina: 1,
-    porPagina: 5,
-  });
+  const [respuesta, abiertos, cerrados, zonas] = await Promise.all([
+    obtenerIncidentes({ pagina: 1, porPagina: 5 }),
+    contarIncidentes("abierto"),
+    contarIncidentes("cerrado"),
+    obtenerZonas(),
+  ]);
 
   const recientes = respuesta.data;
 
@@ -36,22 +38,20 @@ export default async function Home() {
             <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
               <p className="text-sm text-gray-500">Abiertos</p>
               <p className="mt-2 text-2xl font-semibold text-error-500">
-                {recientes.filter((i) => i.estado === "abierto").length}
+                {abiertos}
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
               <p className="text-sm text-gray-500">Cerrados</p>
               <p className="mt-2 text-2xl font-semibold text-success-500">
-                {recientes.filter((i) => i.estado === "cerrado").length}
+                {cerrados}
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
               <p className="text-sm text-gray-500">Zonas cubiertas</p>
-              <p className="mt-2 text-2xl font-semibold">
-                {new Set(recientes.map((i) => i.zona?.id)).size}
-              </p>
+              <p className="mt-2 text-2xl font-semibold">{zonas.data.length}</p>
             </div>
           </section>
 
