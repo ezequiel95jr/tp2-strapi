@@ -1,9 +1,9 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import Badge from "@/components/ui/badge/Badge";
+import CambiarEstado from "@/components/incidentes/CambiarEstado";
 import { Link } from "@/i18n/navigation";
 import { obtenerIncidente } from "@/lib/api";
-import { estadoDe, formatearFecha } from "@/lib/formato";
+import { formatearFecha } from "@/lib/formato";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -25,7 +25,6 @@ export default async function DetalleIncidente({ params }: Props) {
   }
 
   const incidente = respuesta.data;
-  const estado = estadoDe(incidente.estado);
 
   return (
     <div>
@@ -74,7 +73,11 @@ export default async function DetalleIncidente({ params }: Props) {
         </div>
 
         <ComponentCard title="Estado" className="h-fit">
-          <Badge color={estado.color}>{estado.texto}</Badge>
+          <CambiarEstado
+            documentId={incidente.documentId}
+            estado={incidente.estado}
+            titulo={incidente.titulo}
+          />
 
           <dl className="flex flex-col gap-3 text-sm">
             <div>

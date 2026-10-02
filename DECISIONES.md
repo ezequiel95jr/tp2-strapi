@@ -44,7 +44,15 @@ Implementamos tres, uno por integrante. Los elegimos de manera que sean tres ope
 
 **Filtros.** Tres selects de categoría, zona y estado. La búsqueda no se programa: se usa el filtrado que ya trae la API de Strapi pasando los parámetros correspondientes, por ejemplo `?filters[categoria][slug][$eq]=bache`.
 
-**Indicadores.** Cuatro totales (incidentes totales, abiertos, cerrados y promedio de días de resolución) y un gráfico de torta por categoría, hecho con Recharts, la misma librería de gráficos que usa nuestro trabajo final. Los datos se traen y se agregan en el cliente.
+**Indicadores.** Cuatro totales (incidentes totales, abiertos, cerrados y promedio de días de resolución) y un gráfico de torta por categoría, hecho con ApexCharts. Los datos se traen y se agregan en el cliente.
+
+**Indicadores por período.** Además del resumen de Inicio, una sección del menú muestra las estadísticas de un rango de tiempo elegido: hoy, los últimos siete días, un día puntual, un mes o un año. Para ese rango calcula los reportes recibidos, los incidentes nuevos, los cerrados y el promedio de resolución de los que se cerraron, un gráfico de actividad agrupado por hora, día o mes, y los incidentes nuevos por categoría. El rango viaja en la URL, así se puede compartir. Las fechas se agrupan en hora de Argentina (UTC-3), porque Strapi las guarda en UTC y un reporte de las 22 h quedaría en el día siguiente. Como en Inicio, los datos se traen completos de la API y se agregan en el frontend.
+
+**Acceso al panel.** El panel pide iniciar sesión y solo deja entrar a usuarios con el rol administrador. El login lo resuelve Users & Permissions (`/api/auth/local`); el frontend consulta `/api/users/me` para conocer el rol y guarda los tokens en cookies `httpOnly`, que el JavaScript del navegador no puede leer. El token de acceso dura diez minutos y el `proxy.ts` de Next lo renueva con el refresh token. La lectura pública de la API no cambia: el login protege el panel, no los datos, que siguen disponibles para una futura aplicación mobile.
+
+**Usuarios.** Una página del panel lista los usuarios (activos, desactivados o todos) y permite cambiarles el nombre y desactivarlos. Desactivar usa el campo `blocked` de Users & Permissions: el usuario deja de poder iniciar sesión, pero sus reportes se conservan. A diferencia del resto de la API, `/api/users` no es público: el panel lo consulta con el token del administrador y solo envía el nombre y el estado, aunque el endpoint aceptaría también el rol o la contraseña. Un administrador no puede desactivarse a sí mismo. La cantidad de reportes de cada usuario se calcula en el frontend contando los reportes por autor, porque la relación está definida solo del lado del reporte.
+
+**Cambio de estado de los incidentes.** Desde el listado y desde la ficha, el administrador puede pasar un incidente a abierto, en curso o cerrado. La fecha de cierre acompaña al estado: se completa con el momento del cierre y se borra si el incidente se reabre, para que el promedio de resolución de los indicadores siga siendo correcto. Como el resto de las escrituras, se hace con el token del administrador; la API pública sigue siendo solo de lectura.
 
 Los dos primeros corresponden a la funcionalidad 3 (mapa público de incidentes) y el tercero a la 13 (panel de indicadores del organismo) de la lista de funcionalidades comprometida para nuestro trabajo final, lo que permite mostrar la equivalencia entre las dos implementaciones.
 
@@ -62,7 +70,7 @@ Los usuarios tampoco se modelan: el plugin Users & Permissions que trae Strapi y
 
 - **Users & Permissions** (plugin de Strapi, viene instalado): usuarios, autenticación y los roles vecino, operador y administrador, con los permisos de cada uno sobre la API.
 - **Media Library** (plugin Upload de Strapi, viene instalado): carga y almacenamiento de las fotos de los reportes.
-- **Recharts** (librería de React): el gráfico de torta del módulo de indicadores.
+- **ApexCharts** (con `react-apexcharts`): el gráfico de torta del módulo de indicadores. Al principio elegimos Recharts, que es la que usa nuestro trabajo final, pero TailAdmin ya trae ApexCharts para todos sus gráficos; usarla evita sumar una dependencia y mantiene la torta con el mismo estilo que el resto del template.
 
 ## Template CSS
 
@@ -76,12 +84,17 @@ Las modificaciones se anotan acá a medida que se hacen.
 | --- | --- | --- |
 | Color de marca: del azul de TailAdmin al naranja | `globals.css` (paleta `brand` y colores fijos del calendario, el selector de fechas y el foco) | Es el color principal de SnapIt |
 | Escala de grises: de gris azulado a gris neutro | `globals.css` (paleta `gray`) | El gris oscuro es el segundo color de SnapIt, también en el modo oscuro |
-| Logo de TailAdmin reemplazado por el nombre SnapIt | `Logo.tsx`, barra lateral y encabezado | Todavía no tenemos logo; usamos el nombre con "It" en naranja |
-| Menú reducido a Inicio e Incidentes | `AppSidebar.tsx` | Las páginas de demostración no son parte de SnapIt; siguen en el código, pero fuera del menú |
+| Logo de TailAdmin reemplazado por el de SnapIt | `Logo.tsx`, `public/images/logo/snapit.png` y `snapit-icono.png` | La versión completa va en la barra lateral y el encabezado, y la reducida ("Sit") con la barra colapsada. Se generaron desde `docs/`, recortadas y con el fondo transparente para el modo oscuro |
+| Menú reducido a Inicio, Incidentes, Indicadores y Usuarios | `AppSidebar.tsx`, `messages/es.json` | Las páginas de demostración no son parte de SnapIt; siguen en el código, pero fuera del menú |
 | Se quitó la publicidad "Purchase Plan" | `AppSidebar.tsx`, `SidebarWidget.tsx` | Promociona la versión paga del template |
-| Se quitaron las notificaciones y el usuario de ejemplo | `AppHeader.tsx` | Son datos falsos y el panel no tiene inicio de sesión |
+| Se quitaron las notificaciones y el usuario de ejemplo | `AppHeader.tsx` | Son datos falsos |
+| El encabezado muestra el usuario con sesión iniciada y el botón para cerrarla | `AppHeader.tsx`, `PanelAdmin.tsx` (antes el layout de `(admin)`) | El panel requiere inicio de sesión |
+| Formulario de inicio de sesión en español, sin Google, X, registro ni recuperación de contraseña | `SignInForm.tsx`, `signin/page.tsx` | Solo entran administradores ya creados en Strapi, con email y contraseña |
+| Logo y lema de TailAdmin reemplazados en el panel lateral del login | `(auth)/layout.tsx` | Identidad del proyecto |
 | Interfaz en español | `routing.ts`, `languages.ts`, `messages/es.json`, migas de pan | Los usuarios de SnapIt hablan español |
+| Ícono de la pestaña con el logo reducido de SnapIt ("Sit") | `app/favicon.ico` (16, 32 y 48 px), `app/icon.png` (192 px) | Identidad del proyecto. Se generó desde `docs/logo-minimal-SnapIt.png`, recortado y con el fondo transparente |
 | Títulos de pestaña y página 404 con SnapIt | metadata de las páginas, `not-found.tsx`, `error-404` | Identidad del proyecto |
+| Dashboard de e-commerce de Inicio reemplazado por los indicadores | `(admin)/page.tsx`, `components/indicadores/` | Los datos del template eran de ejemplo; las tarjetas reusan su estilo con datos de la API. Los componentes de `ecommerce/` siguen en el código, fuera de la página |
 
 ## Datos de prueba
 

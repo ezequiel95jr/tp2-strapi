@@ -10,7 +10,9 @@ import {
   AlertIcon,
   ChevronDownIcon,
   GridIcon,
+  GroupIcon,
   HorizontaLDots,
+  PieChartIcon,
 } from "../icons/index";
 
 type NavItem = {
@@ -38,6 +40,16 @@ const navItems: NavItem[] = [
     icon: <AlertIcon />,
     key: "incidentes",
     path: "/incidentes",
+  },
+  {
+    icon: <PieChartIcon />,
+    key: "indicadores",
+    path: "/indicadores",
+  },
+  {
+    icon: <GroupIcon />,
+    key: "usuarios",
+    path: "/usuarios",
   },
 ];
 

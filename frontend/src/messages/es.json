@@ -22,6 +22,8 @@
     "items": {
       "dashboard": "Inicio",
       "incidentes": "Incidentes",
+      "indicadores": "Indicadores",
+      "usuarios": "Usuarios",
       "ecommerceHome": "Ecommerce",
       "analytics": "Analytics",
       "marketing": "Marketing",
