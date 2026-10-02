@@ -1,26 +1,26 @@
 {
   "common": {
-    "home": "Home",
-    "edit": "Edit",
-    "close": "Close",
-    "saveChanges": "Save Changes",
-    "viewMore": "View More",
-    "delete": "Delete",
-    "filter": "Filter",
-    "seeAll": "See all"
+    "home": "Inicio",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "saveChanges": "Guardar cambios",
+    "viewMore": "Ver más",
+    "delete": "Eliminar",
+    "filter": "Filtrar",
+    "seeAll": "Ver todo"
   },
   "sidebar": {
     "groups": {
-      "menu": "Menu",
-      "support": "Support",
-      "others": "Others"
+      "menu": "Menú",
+      "support": "Soporte",
+      "others": "Otros"
     },
     "badges": {
-      "new": "new",
+      "new": "nuevo",
       "pro": "pro"
     },
     "items": {
-      "dashboard": "Dashboard",
+      "dashboard": "Inicio",
       "incidentes": "Incidentes",
       "ecommerceHome": "Ecommerce",
       "analytics": "Analytics",
@@ -122,16 +122,11 @@
       "email": "Email",
       "inbox": "Inbox",
       "inboxDetails": "Details"
-    },
-    "widget": {
-      "title": "#1 Tailwind CSS Dashboard",
-      "description": "Leading Tailwind CSS Admin Template with 500+ UI Component and Pages.",
-      "purchasePlan": "Purchase Plan"
     }
   },
   "header": {
-    "searchPlaceholder": "Search or type command...",
-    "toggleSidebar": "Toggle Sidebar",
+    "searchPlaceholder": "Buscar o escribir un comando...",
+    "toggleSidebar": "Mostrar u ocultar el menú",
     "notifications": {
       "title": "Notification",
       "requestsPermission": "requests permission to change",
@@ -272,8 +267,8 @@
   },
   "notFound": {
     "error": "ERROR",
-    "message": "We can’t seem to find the page you are looking for!",
-    "backHome": "Back to Home Page"
+    "message": "No encontramos la página que estás buscando.",
+    "backHome": "Volver al inicio"
   },
   "marketing": {
     "metrics": {

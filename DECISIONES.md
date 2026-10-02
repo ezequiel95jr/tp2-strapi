@@ -66,13 +66,22 @@ Los usuarios tampoco se modelan: el plugin Users & Permissions que trae Strapi y
 
 ## Template CSS
 
-*Pendiente de elegir.* Antes de modificarlo hay que instalarlo tal como viene y capturarlo, porque la consigna pide mostrarlo sin ninguna modificación para poder comparar.
+Elegimos TailAdmin, en su versión gratuita para Next.js (licencia MIT). Usa las mismas versiones que nuestro frontend (Next 16, React 19 y Tailwind 4), es un panel de administración con tablas, tarjetas y gráficos, que es lo que necesitan los tres módulos, y está hecho con Tailwind, la misma librería de estilos que usa nuestro trabajo final.
+
+Lo instalamos tal como viene en un commit aparte y lo capturamos antes de tocarlo, así se puede comparar con la versión adaptada.
 
 Las modificaciones se anotan acá a medida que se hacen.
 
 | Qué cambiamos | Dónde | Por qué |
 | --- | --- | --- |
-| | | |
+| Color de marca: del azul de TailAdmin al naranja | `globals.css` (paleta `brand` y colores fijos del calendario, el selector de fechas y el foco) | Es el color principal de SnapIt |
+| Escala de grises: de gris azulado a gris neutro | `globals.css` (paleta `gray`) | El gris oscuro es el segundo color de SnapIt, también en el modo oscuro |
+| Logo de TailAdmin reemplazado por el nombre SnapIt | `Logo.tsx`, barra lateral y encabezado | Todavía no tenemos logo; usamos el nombre con "It" en naranja |
+| Menú reducido a Inicio e Incidentes | `AppSidebar.tsx` | Las páginas de demostración no son parte de SnapIt; siguen en el código, pero fuera del menú |
+| Se quitó la publicidad "Purchase Plan" | `AppSidebar.tsx`, `SidebarWidget.tsx` | Promociona la versión paga del template |
+| Se quitaron las notificaciones y el usuario de ejemplo | `AppHeader.tsx` | Son datos falsos y el panel no tiene inicio de sesión |
+| Interfaz en español | `routing.ts`, `languages.ts`, `messages/es.json`, migas de pan | Los usuarios de SnapIt hablan español |
+| Títulos de pestaña y página 404 con SnapIt | metadata de las páginas, `not-found.tsx`, `error-404` | Identidad del proyecto |
 
 ## Datos de prueba
 

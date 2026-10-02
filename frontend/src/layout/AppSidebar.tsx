@@ -1,26 +1,17 @@
 "use client";
 
+import Logo from "@/components/common/Logo";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/utils";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSidebar } from "../context/SidebarContext";
 import {
   AlertIcon,
-  BoxCubeIcon,
-  CalenderIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  ListIcon,
-  PageIcon,
-  PieChartIcon,
-  PlugInIcon,
-  TableIcon,
-  UserCircleIcon,
 } from "../icons/index";
-import SidebarWidget from "./SidebarWidget";
 
 type NavItem = {
   key: string;
@@ -41,73 +32,16 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     key: "dashboard",
-    subItems: [{ key: "ecommerceHome", path: "/" }],
+    path: "/",
   },
   {
     icon: <AlertIcon />,
     key: "incidentes",
     path: "/incidentes",
   },
-  {
-    icon: <CalenderIcon />,
-    key: "calendar",
-    path: "/calendar",
-  },
-  {
-    icon: <UserCircleIcon />,
-    key: "userProfile",
-    path: "/profile",
-  },
-  {
-    key: "forms",
-    icon: <ListIcon />,
-    subItems: [{ key: "formElements", path: "/form-elements", pro: false }],
-  },
-  {
-    key: "tables",
-    icon: <TableIcon />,
-    subItems: [{ key: "basicTables", path: "/basic-tables", pro: false }],
-  },
-  {
-    key: "pages",
-    icon: <PageIcon />,
-    subItems: [
-      { key: "blankPage", path: "/blank" },
-      { key: "error404", path: "/error-404" },
-    ],
-  },
 ];
 
-const othersItems: NavItem[] = [
-  {
-    icon: <PieChartIcon />,
-    key: "charts",
-    subItems: [
-      { key: "lineChart", path: "/line-chart", pro: false },
-      { key: "barChart", path: "/bar-chart", pro: false },
-    ],
-  },
-  {
-    icon: <BoxCubeIcon />,
-    key: "uiElements",
-    subItems: [
-      { key: "alerts", path: "/alerts" },
-      { key: "avatar", path: "/avatars" },
-      { key: "badge", path: "/badge" },
-      { key: "buttons", path: "/buttons" },
-      { key: "images", path: "/images" },
-      { key: "videos", path: "/videos" },
-    ],
-  },
-  {
-    icon: <PlugInIcon />,
-    key: "authentication",
-    subItems: [
-      { key: "signIn", path: "/signin", pro: false },
-      { key: "signUp", path: "/signup", pro: false },
-    ],
-  },
-];
+const othersItems: NavItem[] = [];
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
@@ -348,37 +282,7 @@ const AppSidebar: React.FC = () => {
         }`}
       >
         <Link href="/">
-          {isExpanded || isHovered || isMobileOpen ? (
-            <>
-              <Image
-                className="dark:hidden"
-                src="/images/logo/logo.svg"
-                alt="Logo"
-                width={150}
-                height={40}
-                priority
-                style={{ width: "auto", height: "auto" }}
-              />
-              <Image
-                className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
-                alt="Logo"
-                width={150}
-                height={40}
-                priority
-                style={{ width: "auto", height: "auto" }}
-              />
-            </>
-          ) : (
-            <Image
-              src="/images/logo/logo-icon.svg"
-              alt="Logo"
-              width={32}
-              height={32}
-              priority
-              style={{ width: "auto", height: "auto" }}
-            />
-          )}
+          <Logo compacto={!(isExpanded || isHovered || isMobileOpen)} />
         </Link>
       </div>
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
@@ -401,25 +305,26 @@ const AppSidebar: React.FC = () => {
               {renderMenuItems(navItems, "main")}
             </div>
 
-            <div>
-              <h2
-                className={`mb-4 flex text-xs leading-5 text-gray-400 uppercase ${
-                  !isExpanded && !isHovered
-                    ? "xl:justify-center"
-                    : "justify-start"
-                }`}
-              >
-                {isExpanded || isHovered || isMobileOpen ? (
-                  t("groups.others")
-                ) : (
-                  <HorizontaLDots />
-                )}
-              </h2>
-              {renderMenuItems(othersItems, "others")}
-            </div>
+            {othersItems.length > 0 && (
+              <div>
+                <h2
+                  className={`mb-4 flex text-xs leading-5 text-gray-400 uppercase ${
+                    !isExpanded && !isHovered
+                      ? "xl:justify-center"
+                      : "justify-start"
+                  }`}
+                >
+                  {isExpanded || isHovered || isMobileOpen ? (
+                    t("groups.others")
+                  ) : (
+                    <HorizontaLDots />
+                  )}
+                </h2>
+                {renderMenuItems(othersItems, "others")}
+              </div>
+            )}
           </div>
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
       </div>
     </aside>
   );
