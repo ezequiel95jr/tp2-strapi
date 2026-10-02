@@ -21,6 +21,7 @@
     },
     "items": {
       "dashboard": "Dashboard",
+      "incidentes": "Incidentes",
       "ecommerceHome": "Ecommerce",
       "analytics": "Analytics",
       "marketing": "Marketing",

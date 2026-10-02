@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSidebar } from "../context/SidebarContext";
 import {
+  AlertIcon,
   BoxCubeIcon,
   CalenderIcon,
   ChevronDownIcon,
@@ -41,6 +42,11 @@ const navItems: NavItem[] = [
     icon: <GridIcon />,
     key: "dashboard",
     subItems: [{ key: "ecommerceHome", path: "/" }],
+  },
+  {
+    icon: <AlertIcon />,
+    key: "incidentes",
+    path: "/incidentes",
   },
   {
     icon: <CalenderIcon />,
