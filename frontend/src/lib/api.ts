@@ -1,4 +1,10 @@
-import type { Categoria, Incidente, RespuestaPaginada, Zona } from "./types";
+import type {
+  Categoria,
+  Incidente,
+  IncidenteResumen,
+  RespuestaPaginada,
+  Zona,
+} from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:1337";
 
@@ -73,6 +79,58 @@ export function obtenerIncidente(
   documentId: string,
 ): Promise<{ data: Incidente }> {
   return pedir(`/api/incidentes/${documentId}?populate=*`);
+}
+
+// Strapi devuelve como máximo 100 por página, así que se recorren todas
+export async function obtenerTodosLosIncidentes(): Promise<IncidenteResumen[]> {
+  const params = new URLSearchParams({
+    "fields[0]": "estado",
+    "fields[1]": "fechaApertura",
+    "fields[2]": "fechaCierre",
+    "populate[categoria][fields][0]": "nombre",
+    "populate[categoria][fields][1]": "slug",
+    "pagination[pageSize]": "100",
+  });
+
+  const incidentes: IncidenteResumen[] = [];
+  let pagina = 1;
+  let totalPaginas = 1;
+
+  do {
+    params.set("pagination[page]", String(pagina));
+    const respuesta = await pedir<RespuestaPaginada<IncidenteResumen>>(
+      `/api/incidentes?${params}`,
+    );
+    incidentes.push(...respuesta.data);
+    totalPaginas = respuesta.meta.pagination.pageCount;
+    pagina++;
+  } while (pagina <= totalPaginas);
+
+  return incidentes;
+}
+
+// Solo la fecha de cada reporte, para las estadísticas por período
+export async function obtenerFechasDeReportes(): Promise<string[]> {
+  const params = new URLSearchParams({
+    "fields[0]": "fecha",
+    "pagination[pageSize]": "100",
+  });
+
+  const fechas: string[] = [];
+  let pagina = 1;
+  let totalPaginas = 1;
+
+  do {
+    params.set("pagination[page]", String(pagina));
+    const respuesta = await pedir<RespuestaPaginada<{ fecha: string }>>(
+      `/api/reportes?${params}`,
+    );
+    fechas.push(...respuesta.data.map((r) => r.fecha));
+    totalPaginas = respuesta.meta.pagination.pageCount;
+    pagina++;
+  } while (pagina <= totalPaginas);
+
+  return fechas;
 }
 
 export function obtenerCategorias(): Promise<{ data: Categoria[] }> {

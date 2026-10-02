@@ -1,6 +1,5 @@
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import Badge from "@/components/ui/badge/Badge";
 import {
   Table,
   TableBody,
@@ -8,11 +7,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import CambiarEstado from "@/components/incidentes/CambiarEstado";
 import FiltrosIncidentes from "@/components/incidentes/FiltrosIncidentes";
 import { Link } from "@/i18n/navigation";
 import { obtenerCategorias, obtenerIncidentes, obtenerZonas } from "@/lib/api";
 import { esEstado, urlIncidentes } from "@/lib/filtros";
-import { ESTADOS, estadoDe, formatearFecha } from "@/lib/formato";
+import { ESTADOS, formatearFecha } from "@/lib/formato";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -100,8 +100,6 @@ export default async function Incidentes({ searchParams }: Props) {
 
               <TableBody className="divide-y divide-gray-100 dark:divide-white/5">
                 {respuesta.data.map((incidente) => {
-                  const estado = estadoDe(incidente.estado);
-
                   return (
                     <TableRow key={incidente.documentId}>
                       <TableCell className="px-5 py-4 text-start">
@@ -122,9 +120,11 @@ export default async function Incidentes({ searchParams }: Props) {
                         {incidente.zona?.nombre ?? "-"}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-start text-theme-sm">
-                        <Badge size="sm" color={estado.color}>
-                          {estado.texto}
-                        </Badge>
+                        <CambiarEstado
+                          documentId={incidente.documentId}
+                          estado={incidente.estado}
+                          titulo={incidente.titulo}
+                        />
                       </TableCell>
                       <TableCell className="px-4 py-3 text-start text-theme-sm text-gray-500 dark:text-gray-400">
                         {formatearFecha(incidente.fechaApertura)}

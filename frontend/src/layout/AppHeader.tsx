@@ -4,11 +4,17 @@ import Logo from "@/components/common/Logo";
 import { ThemeToggleButton } from "@/components/common/ThemeToggleButton";
 import { useSidebar } from "@/context/SidebarContext";
 import { Link } from "@/i18n/navigation";
+import { cerrarSesion } from "@/lib/acciones-sesion";
+import type { UsuarioSesion } from "@/lib/sesion";
 import { cn } from "@/utils";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-const AppHeader: React.FC = () => {
+type Props = {
+  usuario: Pick<UsuarioSesion, "username" | "rol">;
+};
+
+const AppHeader: React.FC<Props> = ({ usuario }) => {
   const t = useTranslations("header");
   const inputRef = useRef<HTMLInputElement>(null);
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
@@ -156,6 +162,25 @@ const AppHeader: React.FC = () => {
             {/* <!-- Dark Mode Toggler --> */}
             <ThemeToggleButton />
             {/* <!-- Dark Mode Toggler --> */}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="text-end leading-tight">
+              <span className="block text-theme-sm font-medium text-gray-800 dark:text-white/90">
+                {usuario.username}
+              </span>
+              <span className="block text-theme-xs text-gray-500 dark:text-gray-400">
+                {usuario.rol}
+              </span>
+            </div>
+            <form action={cerrarSesion}>
+              <button
+                type="submit"
+                className="flex h-11 items-center rounded-lg border border-gray-200 px-4 text-theme-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-white/3 dark:hover:text-white"
+              >
+                Cerrar sesión
+              </button>
+            </form>
           </div>
         </div>
       </div>

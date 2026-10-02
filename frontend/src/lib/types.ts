@@ -36,6 +36,14 @@ export type Incidente = {
   reportes: Reporte[];
 };
 
+// Lo mínimo que necesitan los indicadores de cada incidente
+export type IncidenteResumen = Pick<
+  Incidente,
+  "documentId" | "estado" | "fechaApertura" | "fechaCierre"
+> & {
+  categoria: Pick<Categoria, "nombre" | "slug"> | null;
+};
+
 export type Paginacion = {
   page: number;
   pageSize: number;

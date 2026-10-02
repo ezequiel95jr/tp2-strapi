@@ -11,6 +11,44 @@ const PERMISOS_PUBLICOS = ['categoria', 'zona', 'incidente', 'reporte'].flatMap(
   `api::${nombre}.${nombre}.findOne`,
 ]);
 
+// El panel solo deja entrar a administradores: para saber el rol del usuario
+// que inicia sesión, el frontend consulta /api/users/me?populate=role con su
+// token. Sin permiso de lectura sobre roles, Strapi quita el rol de la respuesta.
+// logout permite cerrar la sesión en Strapi y no solo borrar las cookies.
+// find y update son para la página de usuarios del panel (listar, renombrar
+// y desactivar); el frontend solo envía el nombre y el estado.
+// Con token, Strapi aplica los permisos del rol y no los de Public: para
+// contar los reportes de cada usuario el administrador necesita leer reportes.
+const PERMISOS_ADMINISTRADOR = [
+  'plugin::users-permissions.user.me',
+  'plugin::users-permissions.role.find',
+  'plugin::users-permissions.auth.logout',
+  'plugin::users-permissions.user.find',
+  'plugin::users-permissions.user.update',
+  'api::reporte.reporte.find',
+  // Cambiar el estado de un incidente desde el listado o la ficha
+  'api::incidente.incidente.update',
+];
+
+/**
+ * Asigna al rol las acciones que todavía no tiene. Si el rol no existe
+ * (por ejemplo, Administrador en una base sin seed) no hace nada.
+ */
+async function asignarPermisos(strapi: Core.Strapi, tipoRol: string, acciones: string[]) {
+  const rol = await strapi.db.query('plugin::users-permissions.role').findOne({ where: { type: tipoRol } });
+
+  if (!rol) return;
+
+  const existentes = await strapi.db
+    .query('plugin::users-permissions.permission')
+    .findMany({ where: { role: rol.id, action: { $in: acciones } } });
+  const yaAsignados = new Set(existentes.map((permiso) => permiso.action));
+
+  for (const action of acciones.filter((a) => !yaAsignados.has(a))) {
+    await strapi.db.query('plugin::users-permissions.permission').create({ data: { action, role: rol.id } });
+  }
+}
+
 type RolSeed = { type: string; name: string; description: string };
 type UsuarioSeed = { username: string; email: string; rol: string; bloqueado?: boolean };
 type SeedUsuarios = { roles: RolSeed[]; password: string; usuarios: UsuarioSeed[] };
@@ -158,26 +196,14 @@ export default {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    const rolPublico = await strapi.db
-      .query('plugin::users-permissions.role')
-      .findOne({ where: { type: 'public' } });
-
-    if (rolPublico) {
-      const existentes = await strapi.db
-        .query('plugin::users-permissions.permission')
-        .findMany({ where: { role: rolPublico.id, action: { $in: PERMISOS_PUBLICOS } } });
-      const yaAsignados = new Set(existentes.map((permiso) => permiso.action));
-
-      for (const action of PERMISOS_PUBLICOS.filter((a) => !yaAsignados.has(a))) {
-        await strapi.db
-          .query('plugin::users-permissions.permission')
-          .create({ data: { action, role: rolPublico.id } });
-      }
-    }
+    await asignarPermisos(strapi, 'public', PERMISOS_PUBLICOS);
 
     if (process.env.NODE_ENV !== 'production') {
       await seedUsuarios(strapi);
       await seedIncidentes(strapi);
     }
+
+    // Después del seed, que es el que crea el rol Administrador
+    await asignarPermisos(strapi, 'administrador', PERMISOS_ADMINISTRADOR);
   },
 };

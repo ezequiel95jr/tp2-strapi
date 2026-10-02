@@ -1,16 +1,28 @@
-// Logotipo de texto hasta tener un logo definitivo
+import Image from "next/image";
+
+// Logo de SnapIt. La versión compacta ("Sit") es para la barra lateral colapsada.
+// Las imágenes salen de docs/logo-SnapIt.png y docs/logo-minimal-SnapIt.png,
+// recortadas y con el fondo transparente para que se vean bien en modo oscuro.
 export default function Logo({ compacto = false }: { compacto?: boolean }) {
   if (compacto) {
     return (
-      <span className="flex size-8 items-center justify-center rounded-lg bg-brand-500 text-lg font-bold text-white">
-        S
-      </span>
+      <Image
+        src="/images/logo/snapit-icono.png"
+        alt="SnapIt"
+        width={43}
+        height={32}
+        priority
+      />
     );
   }
 
   return (
-    <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-      Snap<span className="text-brand-500">It</span>
-    </span>
+    <Image
+      src="/images/logo/snapit.png"
+      alt="SnapIt"
+      width={97}
+      height={40}
+      priority
+    />
   );
 }
