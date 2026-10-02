@@ -1,4 +1,4 @@
-import type { Incidente, RespuestaPaginada } from "./types";
+import type { Categoria, Incidente, RespuestaPaginada, Zona } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:1337";
 
@@ -28,6 +28,9 @@ async function pedir<T>(ruta: string): Promise<T> {
 export type Filtros = {
   pagina?: number;
   porPagina?: number;
+  categoria?: string;
+  zona?: string;
+  estado?: string;
 };
 
 function construirQuery(filtros: Filtros): string {
@@ -39,6 +42,19 @@ function construirQuery(filtros: Filtros): string {
 
   if (filtros.porPagina) {
     params.set("pagination[pageSize]", String(filtros.porPagina));
+  }
+
+  // El filtrado lo hace Strapi: solo pasamos los parámetros
+  if (filtros.categoria) {
+    params.set("filters[categoria][slug][$eq]", filtros.categoria);
+  }
+
+  if (filtros.zona) {
+    params.set("filters[zona][slug][$eq]", filtros.zona);
+  }
+
+  if (filtros.estado) {
+    params.set("filters[estado][$eq]", filtros.estado);
   }
 
   params.set("populate", "*");
@@ -57,4 +73,12 @@ export function obtenerIncidente(
   documentId: string,
 ): Promise<{ data: Incidente }> {
   return pedir(`/api/incidentes/${documentId}?populate=*`);
+}
+
+export function obtenerCategorias(): Promise<{ data: Categoria[] }> {
+  return pedir("/api/categorias?pagination[pageSize]=100&sort=nombre:asc");
+}
+
+export function obtenerZonas(): Promise<{ data: Zona[] }> {
+  return pedir("/api/zonas?pagination[pageSize]=100&sort=nombre:asc");
 }

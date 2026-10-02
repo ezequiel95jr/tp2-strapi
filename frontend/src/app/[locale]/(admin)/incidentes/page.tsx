@@ -8,9 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import FiltrosIncidentes from "@/components/incidentes/FiltrosIncidentes";
 import { Link } from "@/i18n/navigation";
-import { obtenerIncidentes } from "@/lib/api";
-import { estadoDe, formatearFecha } from "@/lib/formato";
+import { obtenerCategorias, obtenerIncidentes, obtenerZonas } from "@/lib/api";
+import { esEstado, urlIncidentes } from "@/lib/filtros";
+import { ESTADOS, estadoDe, formatearFecha } from "@/lib/formato";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,6 +22,9 @@ export const metadata: Metadata = {
 type Props = {
   searchParams: Promise<{
     pagina?: string;
+    categoria?: string;
+    zona?: string;
+    estado?: string;
   }>;
 };
 
@@ -32,26 +37,50 @@ export default async function Incidentes({ searchParams }: Props) {
 
   const pagina = Number(params.pagina ?? "1") || 1;
 
-  const respuesta = await obtenerIncidentes({
-    pagina,
-    porPagina: POR_PAGINA,
-  });
+  // Un estado inválido haría fallar el filtro en Strapi, así que se ignora
+  const filtros = {
+    categoria: params.categoria,
+    zona: params.zona,
+    estado: esEstado(params.estado) ? params.estado : undefined,
+  };
+  const hayFiltros = Object.values(filtros).some(Boolean);
+
+  const [respuesta, categorias, zonas] = await Promise.all([
+    obtenerIncidentes({ ...filtros, pagina, porPagina: POR_PAGINA }),
+    obtenerCategorias(),
+    obtenerZonas(),
+  ]);
 
   const { pagination } = respuesta.meta;
-
-  function construirPagina(nuevaPagina: number): string {
-    return nuevaPagina > 1
-      ? `/incidentes?pagina=${nuevaPagina}`
-      : "/incidentes";
-  }
 
   return (
     <div>
       <PageBreadcrumb pageTitle="Incidentes" />
       <ComponentCard
         title="Incidentes"
-        desc={`${pagination.total} incidentes reportados en la vía pública`}
+        desc={
+          hayFiltros
+            ? `${pagination.total} incidentes con los filtros elegidos`
+            : `${pagination.total} incidentes reportados en la vía pública`
+        }
       >
+        <FiltrosIncidentes
+          key={urlIncidentes(filtros)}
+          actuales={filtros}
+          categorias={categorias.data.map((c) => ({ value: c.slug, label: c.nombre }))}
+          zonas={zonas.data.map((z) => ({ value: z.slug, label: z.nombre }))}
+          estados={Object.entries(ESTADOS).map(([valor, { texto }]) => ({ value: valor, label: texto }))}
+        />
+
+        {hayFiltros && (
+          <Link
+            href="/incidentes"
+            className="inline-block text-sm text-brand-500 hover:underline"
+          >
+            Limpiar filtros
+          </Link>
+        )}
+
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/5 dark:bg-white/3">
           <div className="max-w-full overflow-x-auto">
             <Table>
@@ -111,7 +140,9 @@ export default async function Incidentes({ searchParams }: Props) {
 
             {respuesta.data.length === 0 && (
               <p className="px-5 py-12 text-center text-theme-sm text-gray-500 dark:text-gray-400">
-                Todavía no hay incidentes cargados.
+                {hayFiltros
+                  ? "No hay incidentes con esos filtros."
+                  : "Todavía no hay incidentes cargados."}
               </p>
             )}
           </div>
@@ -126,7 +157,7 @@ export default async function Incidentes({ searchParams }: Props) {
             <div className="flex gap-2">
               {pagination.page > 1 && (
                 <Link
-                  href={construirPagina(pagination.page - 1)}
+                  href={urlIncidentes(filtros, pagination.page - 1)}
                   className="flex h-10 items-center justify-center rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-theme-xs hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/3"
                 >
                   Anterior
@@ -135,7 +166,7 @@ export default async function Incidentes({ searchParams }: Props) {
 
               {pagination.page < pagination.pageCount && (
                 <Link
-                  href={construirPagina(pagination.page + 1)}
+                  href={urlIncidentes(filtros, pagination.page + 1)}
                   className="flex h-10 items-center justify-center rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-theme-xs hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/3"
                 >
                   Siguiente
